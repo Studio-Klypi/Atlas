@@ -91,7 +91,7 @@ export const useUserStore = defineStore("user", {
       let state = true;
 
       try {
-        this.user = await $fetch<IUser>("/api/user/me", {
+        this.user = await $fetch<IUser>("/api/users/me", {
           method: "PUT",
           body: payload,
         });
