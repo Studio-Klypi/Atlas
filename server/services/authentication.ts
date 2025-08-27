@@ -2,10 +2,19 @@ import type { HttpEvent } from "#shared/types/primitives";
 import type { IAuthSessionKey } from "#shared/types/auth-session";
 import * as UserModel from "~~/prisma/models/user";
 import * as SessionModel from "~~/prisma/models/auth-session";
+import type { CookieSerializeOptions } from "cookie-es";
 
-const setCookies = (event: HttpEvent, key: IAuthSessionKey) => {
-  setCookie(event, "auth-token", key.token);
-  setCookie(event, "auth-user-id", key.userId);
+const setCookies = (event: HttpEvent, key: IAuthSessionKey, expiration: Date) => {
+  const cookiesOptions: CookieSerializeOptions = {
+    path: "/",
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    expires: expiration,
+    sameSite: "lax",
+  };
+
+  setCookie(event, "auth-token", key.token, cookiesOptions);
+  setCookie(event, "auth-user-id", key.userId, cookiesOptions);
 };
 const getCookies = (event: HttpEvent) => {
   const token = getCookie(event, "auth-token");
@@ -37,7 +46,7 @@ export async function login(event: HttpEvent) {
       token: session.token,
       userId: session.userId,
     };
-    setCookies(event, key);
+    setCookies(event, key, new Date(session.expiresAt));
 
     return user;
   }
