@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Edit, LoaderCircle, Save } from "lucide-vue-next";
+import { Edit, LoaderCircle, MoreVertical, Save } from "lucide-vue-next";
 import { useForm } from "vee-validate";
 import { toTypedSchema } from "@vee-validate/zod";
 import { z } from "zod";
@@ -8,6 +8,8 @@ import ClickToCopy from "~/components/shared/buttons/ClickToCopy.vue";
 const { locale: loc, locales } = useI18n();
 const locale = ref<"fr">(loc.value);
 watch(locale, value => navigateTo(useSwitchLocalePath()(value)));
+
+const activeToken = computed(() => useCookie("auth-token").value as string | undefined);
 
 const props = defineProps<{
   user: IUser;
@@ -58,7 +60,7 @@ const handleSubmit = form.handleSubmit(async (values) => {
       <slot />
     </DialogTrigger>
 
-    <DialogContent class="sm:max-h-[80dvh] overflow-y-auto">
+    <DialogContent class="max-h-[calc(100dvh-3rem)] sm:max-h-[80dvh] overflow-y-auto">
       <DialogHeader>
         <DialogTitle>{{ $t("dialogs.preferences.title") }}</DialogTitle>
         <DialogDescription>{{ $t("dialogs.preferences.caption") }}</DialogDescription>
@@ -213,8 +215,49 @@ const handleSubmit = form.handleSubmit(async (values) => {
 
       <Separator />
 
-      <section class="flex flex-col gap-4">
-        {{ user.authSessions }}
+      <section class="flex flex-col gap-4 overflow-hidden">
+        <template
+          v-for="session in (user.authSessions ?? [])"
+          :key="session.token"
+        >
+          <Separator />
+          <div class="flex items-center">
+            <div class="flex flex-col gap-1 flex-1 overflow-hidden">
+              <p class="font-semibold truncate">
+                {{ session.agent }}
+              </p>
+
+              <div class="flex gap-1 items-center">
+                <Badge
+                  v-if="new Date(session.expiresAt).getTime() < Date.now()"
+                  variant="outline"
+                  class="border-destructive text-destructive"
+                >
+                  Déconnecté
+                </Badge>
+                <Badge
+                  v-if="session.token === activeToken"
+                  variant="outline"
+                >
+                  Active
+                </Badge>
+              </div>
+            </div>
+            <Button
+              size="icon"
+              variant="ghost"
+              disabled
+            >
+              <MoreVertical />
+            </Button>
+          </div>
+        </template>
+        <Button
+          variant="destructive"
+          @click="userStore.revokeAllSessions"
+        >
+          Déconnecter tous les appareils
+        </Button>
       </section>
     </DialogContent>
   </Dialog>
