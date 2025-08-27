@@ -25,3 +25,4 @@ logs
 
 # Cache files
 *.eslintcache*
+/app/generated/prisma
