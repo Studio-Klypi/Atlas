@@ -1,0 +1,20 @@
+Enum Role {
+  admin
+  moderator
+  accountant
+  writer
+  support
+}
+Table User {
+  id uuid pk [default: `uuid()`]
+
+  firstname string
+  lastname string
+  roles Role[]
+
+  email string unique
+  password string [null]
+
+  createdAt datetime [default: `now()`]
+  updatedAt datetime [default: `now()`]
+}
