@@ -1,0 +1,22 @@
+{
+  "btn": {
+    "log-in": "Me connecter",
+    "log-out": "Déconnexion",
+    "profile": "Mon profil",
+    "preferences": "Préférences"
+  },
+  "labels": {
+    "fields": {
+      "email": "Adresse e-mail",
+      "password": "Mot de passe"
+    }
+  },
+  "validations": {
+    "valid-email": "Entrez une adresse e-mail valide.",
+    "valid-password": "Entrez un mot de passe valide."
+  },
+
+  "login": {
+    "title": "Connexion"
+  }
+}
