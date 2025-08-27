@@ -12,6 +12,7 @@ export default defineNuxtConfig({
     "@nuxtjs/google-fonts",
     "@nuxtjs/color-mode",
     "@pinia/nuxt",
+    "nuxt-scheduler",
   ],
   devtools: { enabled: true },
   css: ["./tailwind.css"],
