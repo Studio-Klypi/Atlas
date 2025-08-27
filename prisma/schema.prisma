@@ -92,7 +92,7 @@ model Contact {
   //
   firstname String
   lastname  String
-  email     String    @db.Citext()
+  email     String?
   phone     String?
   //
   notes     String?
