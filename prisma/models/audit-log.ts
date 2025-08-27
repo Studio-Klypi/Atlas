@@ -1,4 +1,4 @@
-import type { IAuditLog, IAuditLogCreate } from "../../shared/types/audit-log";
+import type { IAuditLog, IAuditLogCreate } from "#shared/types/audit-log";
 import orm from "../index";
 
 /**
