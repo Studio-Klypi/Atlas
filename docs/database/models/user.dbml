@@ -18,4 +18,5 @@ Table User {
 
   createdAt datetime [default: `now()`]
   updatedAt datetime [default: `now()`]
+  deletedAt datetime [null]
 }

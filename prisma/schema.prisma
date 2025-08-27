@@ -18,17 +18,18 @@ enum Role {
 }
 
 model User {
-  id        String   @id @default(cuid())
+  id        String    @id @default(cuid())
   //
   firstname String
   lastname  String
-  roles     Role[]   @default([member])
+  roles     Role[]    @default([member])
   //
-  email     String   @unique
+  email     String    @unique
   password  String
   //
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
 
   authSessions AuthSession[]
   logsAsActor  AuditLog[]    @relation(name: "actor")

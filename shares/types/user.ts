@@ -12,7 +12,7 @@ export const Roles = [
 ] as const;
 export type ERole = (typeof Roles)[number];
 
-export interface IUser {
+export interface IRichUser {
   id: string;
   firstname: string;
   lastname: string;
@@ -21,9 +21,14 @@ export interface IUser {
   password: string;
   createdAt: Date;
   updatedAt: Date;
+  deletedAt: TNull<Date>;
 
   // relations
   authSessions?: TNull<IAuthSession[]>;
   logsAsActor?: TNull<IAuditLog[]>;
   logsAsTarget?: TNull<IAuditLog[]>;
 }
+export type IUser = Omit<IRichUser, "password">;
+
+export type IUserCreate = Omit<IRichUser, "id" | "createdAt" | "updatedAt" | "deletedAt" | "authSessions" | "logsAsTarget" | "logsAsActor">;
+export type IUserUpdate = Partial<IUserCreate>;
