@@ -4,6 +4,6 @@ import Page from "~/components/shared/primitives/layout/Page.vue";
 
 <template>
   <Page>
-    {{ $t("hello") }}
+    home
   </Page>
 </template>

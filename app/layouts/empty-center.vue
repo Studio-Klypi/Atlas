@@ -5,7 +5,7 @@ import Layout from "~/components/shared/primitives/layout/Layout.vue";
 <template>
   <Layout
     name="empty-center"
-    class="min-h-dvh w-full grid place-items-center px-6 py-4"
+    class="min-h-dvh w-full grid place-items-center"
   >
     <NuxtPage />
   </Layout>
