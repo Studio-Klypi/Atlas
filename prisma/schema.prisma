@@ -31,9 +31,11 @@ model User {
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?
 
-  authSessions AuthSession[]
-  logsAsActor  AuditLog[]    @relation(name: "actor")
-  logsAsTarget AuditLog[]    @relation(name: "target")
+  authSessions    AuthSession[]
+  logsAsActor     AuditLog[]    @relation(name: "actor")
+  logsAsTarget    AuditLog[]    @relation(name: "target")
+  createdContacts Contact[]
+  createdClients  Client[]
 
   @@map("users")
 }
@@ -82,4 +84,95 @@ model AuditLog {
   target User? @relation(name: "target", fields: [targetId], references: [id], onDelete: SetNull)
 
   @@map("audit_logs")
+}
+
+// CRM
+model Contact {
+  id        String    @id @default(cuid())
+  //
+  firstname String
+  lastname  String
+  email     String    @db.Citext()
+  phone     String?
+  //
+  notes     String?
+  //
+  createdBy String?
+  //
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  creator User?           @relation(fields: [createdBy], references: [id], onDelete: SetNull)
+  clients ClientContact[]
+
+  @@unique([email, deletedAt])
+  @@map("contacts")
+}
+
+enum ClientType {
+  company
+  individual
+}
+
+enum Currency {
+  eur
+  usd
+}
+
+model Client {
+  id                 String     @id @default(cuid())
+  //
+  type               ClientType
+  name               String
+  legalForm          String?
+  //
+  street             String
+  zip                String
+  city               String
+  country            String
+  //
+  registrationNumber String?
+  siren              String?
+  siret              String?
+  vatNumber          String?
+  billindCurrency    Currency   @default(eur)
+  //
+  email              String?
+  phone              String?
+  website            String?
+  notes              String?
+  //
+  createdBy          String?
+  //
+  createdAt          DateTime   @default(now())
+  updatedAt          DateTime   @updatedAt
+  deletedAt          DateTime?
+
+  creator  User?           @relation(fields: [createdBy], references: [id], onDelete: SetNull)
+  contacts ClientContact[]
+
+  @@unique([siret, deletedAt])
+  @@unique([registrationNumber, deletedAt])
+  @@unique([vatNumber, deletedAt])
+  @@map("clients")
+}
+
+model ClientContact {
+  clientId         String
+  contactId        String
+  role             String
+  isBillingContact Boolean  @default(false)
+  email            String?
+  //
+  createdBy        String?
+  //
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  client  Client  @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  contact Contact @relation(fields: [contactId], references: [id], onDelete: Cascade)
+
+  @@id(name: "key", [clientId, contactId])
+  @@map("client_contacts")
 }
