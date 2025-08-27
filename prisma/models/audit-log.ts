@@ -67,13 +67,14 @@ export async function findUserAsTarget(userId: string): Promise<IAuditLog[]> {
  * @returns - Audit logs
  */
 export async function findInPeriod(start: Date, end?: Date): Promise<IAuditLog[]> {
+  if (!end) end = new Date();
   if (start.getTime() >= end.getTime()) throw new Error("Start date must be before end date");
 
   return (await orm.auditLog.findMany({
     where: {
       createdAt: {
         gte: start,
-        lte: end ?? new Date(),
+        lte: end,
       },
     },
     include: {

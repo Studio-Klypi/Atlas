@@ -14,14 +14,14 @@ export type EActionStatus = (typeof ActionStatus)[number];
 
 export interface IAuditLog {
   id: string;
-  actorId: TNull<string>;
-  targetId: TNull<string>;
-  targetType: TNull<ETargetType>;
+  actorId?: TNull<string>;
+  targetId?: TNull<string>;
+  targetType?: TNull<ETargetType>;
   action: string;
-  ip: TNull<string>;
-  agent: TNull<string>;
+  ip?: TNull<string>;
+  agent?: TNull<string>;
   status: EActionStatus;
-  meta: TNull<object>;
+  meta?: TNull<object>;
   createdAt: Date;
 
   // relations
