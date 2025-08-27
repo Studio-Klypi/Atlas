@@ -5,6 +5,10 @@
   "description": "Internal ERP for Studio Klypi",
   "type": "module",
   "private": true,
+  "prisma": {
+    "schema": "prisma/schema.prisma",
+    "seed": "tsx ./prisma/seed.ts"
+  },
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev --host",
@@ -13,7 +17,13 @@
     "postinstall": "nuxt prepare",
     "add:component": "tsx ./scripts/shadcn-add.ts",
     "add:module": "tsx ./scripts/nuxt-add-module.ts",
-    "lint": "eslint . --fix"
+    "lint": "eslint . --fix",
+    "db:migrate": "prisma migrate dev --name",
+    "db:create-migration": "prisma migrate dev --create-only --name",
+    "db:seed": "prisma db seed",
+    "db:generate": "prisma generate",
+    "db:deploy": "prisma migrate deploy",
+    "db:studio": "prisma studio"
   },
   "dependencies": {
     "@nuxt/eslint": "1.9.0",
