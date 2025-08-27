@@ -11,3 +11,4 @@ export interface IAuthSession {
   // relations
   user?: TNull<IUser>;
 }
+export type IAuthSessionKey = Pick<IAuthSession, "userId" | "token">;
