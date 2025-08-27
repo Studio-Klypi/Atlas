@@ -78,6 +78,7 @@ export async function findOne(id: string): Promise<IUser> {
       id,
     },
     include: {
+      authSessions: true,
       logsAsActor: {
         include: {
           target: true,
@@ -106,6 +107,7 @@ export async function findByEmail(email: string): Promise<IUser> {
       email,
     },
     include: {
+      authSessions: true,
       logsAsActor: {
         include: {
           target: true,
@@ -135,6 +137,7 @@ export async function authenticate(email: string, password: string): Promise<IUs
       email,
     },
     include: {
+      authSessions: true,
       logsAsActor: {
         include: {
           target: true,
@@ -168,8 +171,21 @@ export async function update(id: string, payload: IUserUpdate): Promise<IUser> {
     data: {
       ...payload,
     },
+    include: {
+      authSessions: true,
+      logsAsActor: {
+        include: {
+          target: true,
+        },
+      },
+      logsAsTarget: {
+        include: {
+          actor: true,
+        },
+      },
+    },
   });
-  return purify(user);
+  return purify(user as unknown as IRichUser);
 }
 
 /**
@@ -185,6 +201,7 @@ export async function deleteOne(id: string): Promise<IUser> {
       id,
     },
     include: {
+      authSessions: true,
       logsAsActor: {
         include: {
           target: true,

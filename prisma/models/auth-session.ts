@@ -1,5 +1,7 @@
 import type { IAuthSession, IAuthSessionKey } from "#shared/types/auth-session";
 import orm from "../index";
+import * as UserModel from "./user";
+import type { IRichUser } from "#shared/types/user";
 
 /**
  * Create a new auth session
@@ -38,11 +40,28 @@ export async function findSession(key: IAuthSessionKey): Promise<IAuthSession> {
       },
     },
     include: {
-      user: true,
+      user: {
+        include: {
+          authSessions: true,
+          logsAsActor: {
+            include: {
+              target: true,
+            },
+          },
+          logsAsTarget: {
+            include: {
+              actor: true,
+            },
+          },
+        },
+      },
     },
   });
   if (!session) throw new Error("Session not found");
-  return session;
+  return {
+    ...session,
+    user: UserModel.purify(session.user as IRichUser),
+  };
 }
 
 /**
@@ -54,7 +73,7 @@ export async function findSession(key: IAuthSessionKey): Promise<IAuthSession> {
 export async function revoke(key: IAuthSessionKey): Promise<IAuthSession> {
   if (!await exists(key)) throw new Error("Session not found");
   const now = new Date();
-  return await orm.authSession.update({
+  return orm.authSession.update({
     where: {
       key,
       expiresAt: {
