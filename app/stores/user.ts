@@ -5,6 +5,7 @@ interface UserState {
   user: TNull<IUser>;
   loading: {
     loggingIn: boolean;
+    updatingProfile: boolean;
   };
   dialogs: {
     profile: boolean;
@@ -17,6 +18,7 @@ export const useUserStore = defineStore("user", {
     user: null,
     loading: {
       loggingIn: false,
+      updatingProfile: false,
     },
     dialogs: {
       profile: false,
@@ -83,6 +85,26 @@ export const useUserStore = defineStore("user", {
       catch (e) {
         console.error(e);
       }
+    },
+    async updateProfile(payload: IUserUpdate) {
+      this.loading.updatingProfile = true;
+      let state = true;
+
+      try {
+        this.user = await $fetch<IUser>("/api/user/me", {
+          method: "PUT",
+          body: payload,
+        });
+      }
+      catch (e) {
+        console.error(e);
+        state = false;
+      }
+      finally {
+        this.loading.updatingProfile = false;
+      }
+
+      return state;
     },
   },
 });

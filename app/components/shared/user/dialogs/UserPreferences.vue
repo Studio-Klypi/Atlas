@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Edit, Save } from "lucide-vue-next";
+import { Edit, LoaderCircle, Save } from "lucide-vue-next";
 import { useForm } from "vee-validate";
 import { toTypedSchema } from "@vee-validate/zod";
 import { z } from "zod";
@@ -32,6 +32,9 @@ watch(open, (val) => {
   });
 });
 
+const userStore = useUserStore();
+const { loading } = storeToRefs(userStore);
+
 const form = useForm({
   validationSchema: toTypedSchema(z.object({
     firstname: z.string().min(1).transform(s => s.trim()),
@@ -45,7 +48,7 @@ const form = useForm({
   },
 });
 const handleSubmit = form.handleSubmit(async (values) => {
-  console.table(values);
+  await userStore.updateProfile(values);
 });
 </script>
 
@@ -141,8 +144,15 @@ const handleSubmit = form.handleSubmit(async (values) => {
             </FormField>
 
             <div class="flex items-center gap-2 justify-end">
-              <Button type="submit">
-                <Save />
+              <Button
+                type="submit"
+                :disabled="loading.updatingProfile"
+              >
+                <LoaderCircle
+                  v-if="loading.updatingProfile"
+                  class="animate-spin"
+                />
+                <Save v-else />
                 {{ $t("btn.save") }}
               </Button>
             </div>
@@ -199,6 +209,12 @@ const handleSubmit = form.handleSubmit(async (values) => {
             </Select>
           </div>
         </main>
+      </section>
+
+      <Separator />
+
+      <section class="flex flex-col gap-4">
+        {{ user.authSessions }}
       </section>
     </DialogContent>
   </Dialog>
