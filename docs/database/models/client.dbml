@@ -40,7 +40,7 @@ Table ClientContact {
   contactId uuid pk [ref: > Contact.id]
   role string
   isBillingContact boolean [default: false]
-  email string [null]
+  emailOverride string [null]
 
   createdBy uuid [ref: > User.id]
 

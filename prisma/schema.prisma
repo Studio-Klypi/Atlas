@@ -163,7 +163,7 @@ model ClientContact {
   contactId        String
   role             String
   isBillingContact Boolean  @default(false)
-  email            String?
+  emailOverride    String?
   //
   createdBy        String?
   //
