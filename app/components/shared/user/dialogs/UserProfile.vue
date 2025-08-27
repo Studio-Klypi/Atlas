@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { IUser } from "#shared/types/user";
 import { parseShortDate, parseShortTime } from "#shared/helpers/date";
-import { useClipboard } from "@vueuse/core";
 import ClickToCopy from "~/components/shared/buttons/ClickToCopy.vue";
 
 const { locale, locales } = useI18n();
