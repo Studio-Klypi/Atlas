@@ -23,3 +23,5 @@ export interface IAuditLog {
   actor?: TNull<IUser>;
   target?: TNull<IUser>;
 }
+
+export type IAuditLogCreate = Omit<IAuditLog, "id" | "createdAt" | "actor" | "target">;
