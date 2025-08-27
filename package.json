@@ -42,7 +42,7 @@
     "eslint": "^9.0.0",
     "lucide-vue-next": "^0.542.0",
     "nuxt": "^4.0.3",
-    "nuxt-scheduler": "0.1.9",
+    "nuxt-cron": "1.8.0",
     "pinia": "^3.0.3",
     "shadcn-nuxt": "2.2.0",
     "tailwind-merge": "^3.3.1",
