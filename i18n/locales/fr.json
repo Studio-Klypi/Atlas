@@ -1,0 +1,65 @@
+{
+  "btn": {
+    "log-in": "Me connecter",
+    "log-out": "Déconnexion",
+    "profile": "Mon profil",
+    "preferences": "Préférences",
+    "cancel": "Annuler",
+    "save": "Enregistrer"
+  },
+  "labels": {
+    "dates": {
+      "created-at-with-time": "Créé le {date} à {time} | Créée le {date} à {time}"
+    },
+    "roles": {
+      "admin": "Administateur",
+      "moderator": "Modérateur",
+      "accountant": "Comptable",
+      "writer": "Rédacteur",
+      "member": "Membre",
+      "support": "Support"
+    },
+    "fields": {
+      "email": "Adresse e-mail",
+      "password": "Mot de passe",
+      "roles": "Rôles",
+      "firstname": "Prénom",
+      "lastname": "Nom",
+      "theme": "Thème",
+      "language": "Langue"
+    },
+    "themes": {
+      "light": "Clair",
+      "dark": "Sombre",
+      "system": "Automatique"
+    }
+  },
+  "validations": {
+    "valid-email": "Entrez une adresse e-mail valide.",
+    "valid-password": "Entrez un mot de passe valide."
+  },
+  "readers": {
+    "profile-dialog": {
+      "title": "{name}",
+      "caption": "Vous visionnez le profil de {name}."
+    }
+  },
+  "dialogs": {
+    "preferences": {
+      "title": "Préférences",
+      "caption": "Configurez votre profil, votre interface et vos préférences de notifications afin de vous assurer la meilleure expérience de navigation possible.",
+      "sections": {
+        "profile": {
+          "label": "Profil"
+        },
+        "interface": {
+          "label": "Interface"
+        }
+      }
+    }
+  },
+
+  "login": {
+    "title": "Connexion"
+  }
+}

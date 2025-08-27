@@ -1,0 +1,9 @@
+Table AuthSession {
+  token uuid pk [default: `cuid()`]
+  userUid uuid pk [ref: > User.id]
+
+  agent string
+
+  createdAt datetime [default: `now()`]
+  expiresAt datetime
+}
