@@ -4,13 +4,14 @@ Enum Role {
   accountant
   writer
   support
+  member
 }
 Table User {
-  id uuid pk [default: `uuid()`]
+  id uuid pk [default: `cuid()`]
 
   firstname string
   lastname string
-  roles Role[]
+  roles Role[] [default: "[member]"]
 
   email string unique
   password string [null]

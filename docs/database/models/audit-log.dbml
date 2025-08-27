@@ -1,6 +1,3 @@
-Enum ActionType {
-  "auth.login"
-}
 Enum TargetType {
   user
 }
@@ -9,7 +6,7 @@ Enum ActionStatus {
   failure
 }
 Table AuditLog {
-  id uuid pk [default: `uuid()`]
+  id uuid pk [default: `cuid()`]
 
   actorId uuid [null, ref: > User.id]
   targetId uuid [null]
