@@ -7,15 +7,16 @@ import orm from "../index";
  * @returns - Created audit log
  */
 export async function create(payload: IAuditLogCreate): Promise<IAuditLog> {
-  return orm.auditLog.create({
+  return (await orm.auditLog.create({
     data: {
       ...payload,
+      meta: payload.meta ? JSON.stringify(payload.meta) : null,
     },
     include: {
       actor: true,
       target: true,
     },
-  });
+  })) as unknown as IAuditLog;
 }
 
 /**
@@ -24,7 +25,7 @@ export async function create(payload: IAuditLogCreate): Promise<IAuditLog> {
  * @returns - Audit logs
  */
 export async function findUserAsActor(userId: string): Promise<IAuditLog[]> {
-  return orm.auditLog.findMany({
+  return (await orm.auditLog.findMany({
     where: {
       actorId: userId,
     },
@@ -32,7 +33,10 @@ export async function findUserAsActor(userId: string): Promise<IAuditLog[]> {
       actor: true,
       target: true,
     },
-  });
+  })).map(log => ({
+    ...log,
+    meta: log.meta ? JSON.parse(log.meta) : undefined,
+  })) as unknown as IAuditLog[];
 }
 
 /**
@@ -41,7 +45,7 @@ export async function findUserAsActor(userId: string): Promise<IAuditLog[]> {
  * @returns - Audit logs
  */
 export async function findUserAsTarget(userId: string): Promise<IAuditLog[]> {
-  return orm.auditLog.findMany({
+  return (await orm.auditLog.findMany({
     where: {
       targetId: userId,
       targetType: "user",
@@ -50,7 +54,10 @@ export async function findUserAsTarget(userId: string): Promise<IAuditLog[]> {
       actor: true,
       target: true,
     },
-  });
+  })).map(log => ({
+    ...log,
+    meta: log.meta ? JSON.parse(log.meta) : undefined,
+  })) as unknown as IAuditLog[];
 }
 
 /**
@@ -62,7 +69,7 @@ export async function findUserAsTarget(userId: string): Promise<IAuditLog[]> {
 export async function findInPeriod(start: Date, end?: Date): Promise<IAuditLog[]> {
   if (start.getTime() >= end.getTime()) throw new Error("Start date must be before end date");
 
-  return orm.auditLog.findMany({
+  return (await orm.auditLog.findMany({
     where: {
       createdAt: {
         gte: start,
@@ -73,5 +80,8 @@ export async function findInPeriod(start: Date, end?: Date): Promise<IAuditLog[]
       actor: true,
       target: true,
     },
-  });
+  })).map(log => ({
+    ...log,
+    meta: log.meta ? JSON.parse(log.meta) : undefined,
+  })) as unknown as IAuditLog[];
 }

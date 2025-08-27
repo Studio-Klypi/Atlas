@@ -1,10 +1,15 @@
 import type { TNull } from "./primitives";
-import type { IUser } from "./user";
+import type { IRichUser } from "./user";
 
-export const TargetTypes = [] as const;
+export const TargetTypes = [
+  "user",
+] as const;
 export type ETargetType = (typeof TargetTypes)[number];
 
-export const ActionStatus = [] as const;
+export const ActionStatus = [
+  "success",
+  "failure",
+] as const;
 export type EActionStatus = (typeof ActionStatus)[number];
 
 export interface IAuditLog {
@@ -20,8 +25,8 @@ export interface IAuditLog {
   createdAt: Date;
 
   // relations
-  actor?: TNull<IUser>;
-  target?: TNull<IUser>;
+  actor?: TNull<IRichUser>;
+  target?: TNull<IRichUser>;
 }
 
 export type IAuditLogCreate = Omit<IAuditLog, "id" | "createdAt" | "actor" | "target">;

@@ -31,12 +31,12 @@ export async function create(payload: IUserCreate): Promise<IUser> {
             targetType: "user",
             action: "user.create",
             status: "success",
-            meta: {
+            meta: JSON.stringify({
               body: {
                 ...payload,
                 password: "··········",
               },
-            },
+            }),
           },
         },
       },
@@ -54,7 +54,7 @@ export async function create(payload: IUserCreate): Promise<IUser> {
       },
     });
 
-    return purify(user);
+    return purify(user as unknown as IRichUser);
   }
   catch (e) {
     switch ((e as PrismaClientKnownRequestError).code) {
@@ -91,7 +91,7 @@ export async function findOne(id: string): Promise<IUser> {
     },
   });
   if (!user) throw new Error("User not found");
-  return purify(user);
+  return purify(user as unknown as IRichUser);
 }
 
 /**
@@ -119,7 +119,7 @@ export async function findByEmail(email: string): Promise<IUser> {
     },
   });
   if (!user) throw new Error("User not found");
-  return purify(user);
+  return purify(user as unknown as IRichUser);
 }
 
 /**
@@ -148,8 +148,8 @@ export async function authenticate(email: string, password: string): Promise<IUs
     },
   });
   if (!user) throw new Error("User not found");
-  if (!argon2.verify(user.password, password)) throw new Error("Invalid password");
-  return purify(user);
+  if (!await argon2.verify(user.password, password)) throw new Error("Invalid password");
+  return purify(user as unknown as IRichUser);
 }
 
 /**
@@ -197,7 +197,7 @@ export async function deleteOne(id: string): Promise<IUser> {
       },
     },
   });
-  return purify(user);
+  return purify(user as unknown as IRichUser);
 }
 
 /**
