@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { Copy, Check } from "lucide-vue-next";
 import type { IUser } from "#shared/types/user";
 import { parseShortDate, parseShortTime } from "#shared/helpers/date";
 import { useClipboard } from "@vueuse/core";
@@ -11,8 +10,6 @@ const selectedLocale = computed(() => locales.value.find(l => l.code === locale.
 defineProps<{
   user: IUser;
 }>();
-
-const { copy, copied } = useClipboard();
 
 const open = defineModel<boolean>("open", { default: false });
 </script>
