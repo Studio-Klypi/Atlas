@@ -6,3 +6,79 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+// Authentication
+enum Role {
+  admin
+  moderator
+  accountant
+  writer
+  support
+  member
+}
+
+model User {
+  id        String   @id @default(cuid())
+  //
+  firstname String
+  lastname  String
+  roles     Role[]   @default([member])
+  //
+  email     String   @unique
+  password  String
+  //
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  authSessions AuthSession[]
+  logsAsActor  AuditLog[]    @relation(name: "actor")
+  logsAsTarget AuditLog[]    @relation(name: "target")
+
+  @@map("users")
+}
+
+model AuthSession {
+  token     String   @default(cuid())
+  userId    String
+  //
+  agent     String
+  //
+  createdAt DateTime @default(now())
+  expiresAt DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id(name: "key", fields: [token, userId])
+  @@map("auth_sessions")
+}
+
+// Logging
+enum TargetType {
+  user
+}
+
+enum ActionStatus {
+  success
+  failure
+}
+
+model AuditLog {
+  id         String       @id @default(cuid())
+  //
+  actorId    String?
+  targetId   String?
+  targetType TargetType?
+  //
+  action     String
+  ip         String?
+  agent      String?
+  status     ActionStatus
+  meta       String?
+  //
+  createdAt  DateTime     @default(now())
+
+  actor  User? @relation(name: "actor", fields: [actorId], references: [id], onDelete: SetNull)
+  target User? @relation(name: "target", fields: [targetId], references: [id], onDelete: SetNull)
+
+  @@map("audit_logs")
+}
