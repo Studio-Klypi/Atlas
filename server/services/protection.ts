@@ -1,5 +1,5 @@
-import type { HttpEvent } from "~~/shares/types/primitives";
-import type { ERole, IRichUser } from "~~/shares/types/user";
+import type { HttpEvent } from "#shared/types/primitives";
+import type { ERole, IRichUser } from "#shared/types/user";
 import { findSession } from "~~/prisma/models/auth-session";
 
 export async function protect(event: HttpEvent, next: (e: HttpEvent) => Promise<unknown>, options: {

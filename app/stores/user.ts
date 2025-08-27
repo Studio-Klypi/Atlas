@@ -1,5 +1,5 @@
-import type { TNull } from "~~/shares/types/primitives";
-import type { IUser } from "~~/shares/types/user";
+import type { TNull } from "#shared/types/primitives";
+import type { IUser } from "#shared/types/user";
 
 interface UserState {
   user: TNull<IUser>;

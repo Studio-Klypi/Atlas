@@ -1,4 +1,4 @@
-import type { IAuthSession, IAuthSessionKey } from "../../shares/types/auth-session";
+import type { IAuthSession, IAuthSessionKey } from "#shared/types/auth-session";
 import orm from "../index";
 
 /**

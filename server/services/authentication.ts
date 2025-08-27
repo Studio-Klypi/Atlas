@@ -1,5 +1,5 @@
-import type { HttpEvent } from "~~/shares/types/primitives";
-import type { IAuthSessionKey } from "~~/shares/types/auth-session";
+import type { HttpEvent } from "#shared/types/primitives";
+import type { IAuthSessionKey } from "#shared/types/auth-session";
 import * as UserModel from "~~/prisma/models/user";
 import * as SessionModel from "~~/prisma/models/auth-session";
 

@@ -1,4 +1,4 @@
-import type { IRichUser, IUser, IUserCreate, IUserUpdate } from "../../shares/types/user";
+import type { IRichUser, IUser, IUserCreate, IUserUpdate } from "#shared/types/user";
 import type { PrismaClientKnownRequestError } from "@prisma/client/runtime/binary";
 import orm from "../index";
 import argon2 from "argon2";

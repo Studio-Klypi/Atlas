@@ -1,6 +1,6 @@
 import type { PrismaClient } from "@prisma/client";
 import argon2 from "argon2";
-import type { ERole } from "../../shares/types/user";
+import type { ERole } from "../../shared/types/user";
 
 const data: {
   id: string;
