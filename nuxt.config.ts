@@ -49,7 +49,7 @@ export default defineNuxtConfig({
   },
   googleFonts: {
     families: {
-      Manrope: "200..800",
+      Rubik: "300..900",
     },
   },
   i18n: {
