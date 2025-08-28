@@ -1,5 +1,4 @@
 import type { TNull } from "./primitives";
-import type { IAuditLog } from "./audit-log";
 import type { IAuthSession } from "./auth-session";
 
 export const Roles = [
@@ -25,8 +24,6 @@ export interface IRichUser {
 
   // relations
   authSessions?: TNull<IAuthSession[]>;
-  logsAsActor?: TNull<IAuditLog[]>;
-  logsAsTarget?: TNull<IAuditLog[]>;
 }
 export type IUser = Omit<IRichUser, "password">;
 
