@@ -1,6 +1,7 @@
 import type { IClient, IClientCreate, IClientUpdate } from "#shared/types/client";
 import type { PrismaClientKnownRequestError } from "@prisma/client/runtime/binary";
 import orm from "../index";
+import type { IListResponse } from "#shared/types/primitives";
 
 /**
  * Create a new client
@@ -158,10 +159,13 @@ export async function findOne(id: string): Promise<IClient> {
  * @param {boolean} [archived=false] - Flag to include archived records. If true, only archived records are retrieved; otherwise, non-archived records are retrieved.
  * @return {Promise<IClient[]>} A promise that resolves to a list of client records.
  */
-export async function findAll(skip: number = 0, take: number = 30, archived: boolean = false): Promise<IClient[]> {
-  return orm.client.findMany({
+export async function findAll(skip: number = 0, take: number = 30, archived: boolean = false): Promise<IListResponse<IClient>> {
+  const data = await orm.client.findMany({
     where: {
       deletedAt: archived ? { not: null } : null,
+    },
+    orderBy: {
+      createdAt: "desc",
     },
     take,
     skip,
@@ -170,6 +174,15 @@ export async function findAll(skip: number = 0, take: number = 30, archived: boo
       contacts: true,
     },
   });
+  const total = await orm.client.count({
+    where: {
+      deletedAt: archived ? { not: null } : null,
+    },
+  });
+  return {
+    data,
+    total,
+  };
 }
 
 /**
