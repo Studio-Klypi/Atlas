@@ -5,7 +5,8 @@
     "profile": "Mon profil",
     "preferences": "Préférences",
     "cancel": "Annuler",
-    "save": "Enregistrer"
+    "save": "Enregistrer",
+    "new": "Nouveau | Nouvelle"
   },
   "labels": {
     "dates": {
@@ -58,8 +59,29 @@
       }
     }
   },
+  "navigation": {
+    "default": {
+      "dashboard": "Tableau de bord"
+    },
+    "crm": {
+      "label": "Annuaire",
+      "clients": "Clients",
+      "contacts": "Contacts"
+    }
+  },
 
   "login": {
     "title": "Connexion"
+  },
+  "dashboard": {
+    "title": "Tableau de bord"
+  },
+  "crm": {
+    "clients": {
+      "title": "Clients"
+    },
+    "contacts": {
+      "title": "Contacts"
+    }
   }
 }

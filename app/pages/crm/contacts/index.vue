@@ -1,13 +1,13 @@
-<script lang="ts" setup>
+<script setup lang="ts">
 import Page from "~/components/shared/primitives/layout/Page.vue";
 
 definePageMeta({
-  displayName: "dashboard",
+  displayName: "crm.contacts",
 });
 </script>
 
 <template>
-  <Page>
-    home
+  <Page name="crm.contacts.list">
+    crm contacts list
   </Page>
 </template>

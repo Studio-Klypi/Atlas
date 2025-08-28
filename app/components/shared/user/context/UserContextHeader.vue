@@ -4,7 +4,7 @@ const { user } = storeToRefs(useUserStore());
 
 <template>
   <DropdownMenuGroup v-if="user">
-    <div class="p-1 flex items-center gap-2">
+    <div class="p-1 pr-3 flex items-center gap-2">
       <!-- todo: avatar -->
       <Avatar class="size-10 rounded-md">
         <AvatarFallback>{{ user.firstname[0] }}{{ user.lastname[0] }}</AvatarFallback>
