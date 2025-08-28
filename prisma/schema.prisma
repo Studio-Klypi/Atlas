@@ -136,7 +136,7 @@ model Client {
   siren              String?
   siret              String?
   vatNumber          String?
-  billindCurrency    Currency   @default(eur)
+  billingCurrency    Currency   @default(eur)
   //
   email              String?
   phone              String?
