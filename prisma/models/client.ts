@@ -1,4 +1,4 @@
-import type { IClient, IClientCreate, IClientUpdate } from "../../shared/types/client";
+import type { IClient, IClientCreate, IClientUpdate } from "#shared/types/client";
 import type { PrismaClientKnownRequestError } from "@prisma/client/runtime/binary";
 import orm from "../index";
 
