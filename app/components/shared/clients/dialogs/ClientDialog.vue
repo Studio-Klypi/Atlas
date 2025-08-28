@@ -4,7 +4,6 @@ import { z } from "zod";
 import { ClientTypes } from "#shared/types/client";
 import { toTypedSchema } from "@vee-validate/zod";
 import { Link, LoaderCircle, Plus, Save } from "lucide-vue-next";
-import type { Currency } from "@prisma/client";
 
 const open = defineModel<boolean>("open", { default: false });
 
