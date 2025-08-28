@@ -9,9 +9,11 @@
     "new": "Nouveau | Nouvelle",
     "archive": "Archiver",
     "copy-id": "Copier l'identifiant",
-    "load-more": "Charger plus"
+    "load-more": "Charger plus",
+    "create-entry": "Créer l'entrée"
   },
   "labels": {
+    "optional": "(optionnel) | (optionnelle)",
     "dates": {
       "created-at-with-time": "Créé le {date} à {time} | Créée le {date} à {time}",
       "with-time": "{date} à {time}"
@@ -25,13 +27,20 @@
       "support": "Support"
     },
     "fields": {
+      "name": "Nom",
       "email": "Adresse e-mail",
+      "phone": "Téléphone",
+      "notes": "Notes",
       "password": "Mot de passe",
       "roles": "Rôles",
       "firstname": "Prénom",
       "lastname": "Nom",
       "theme": "Thème",
-      "language": "Langue"
+      "language": "Langue",
+      "street": "Rue",
+      "zip": "Code postal",
+      "city": "Ville",
+      "country": "Pays"
     },
     "themes": {
       "light": "Clair",
@@ -42,7 +51,10 @@
       "company": "Entreprise",
       "individual": "Particulier"
     },
-    "copied": "Copié ! | Copiée !"
+    "copied": "Copié ! | Copiée !",
+    "placeholders": {
+      "write-notes": "Écrivez vos notes ici..."
+    }
   },
   "validations": {
     "valid-email": "Entrez une adresse e-mail valide.",
@@ -103,6 +115,29 @@
         "actions": {
           "access": "Accéder à la fiche",
           "download": "Télécharger la fiche"
+        }
+      },
+      "dialogs": {
+        "sections": {
+          "address": "Adresse",
+          "identification": "Identification",
+          "contact": "Informations de contact"
+        },
+        "fields": {
+          "client-type": "Type de client",
+          "legal-form": "Forme juridique",
+          "registration-number": "Numéro d'enregistrement",
+          "siret": "SIRET",
+          "vat-number": "Numéro de TVA",
+          "billing-currency": "Devise de facturation",
+          "website": "Site internet"
+        },
+        "create": {
+          "title": "Nouveau client",
+          "caption": "Créer un client pour la future gestion de projets ou facturation."
+        },
+        "edit": {
+          "caption": "Tenir un client à jour est important ! Tout information complémentaire est bonne à prendre."
         }
       }
     },

@@ -2,10 +2,16 @@
 import Page from "~/components/shared/primitives/layout/Page.vue";
 import { ArrowDown, Filter, LoaderCircle, Plus, Search } from "lucide-vue-next";
 import ClientDataTable from "~/components/shared/clients/data-table/ClientDataTable.vue";
+import ClientDialog from "~/components/shared/clients/dialogs/ClientDialog.vue";
 
 definePageMeta({
   displayName: "crm.clients",
 });
+
+const clientsStore = useClientsStore();
+const { list } = storeToRefs(clientsStore);
+
+clientsStore.loadClients(list.value.page + 1);
 </script>
 
 <template>
@@ -24,17 +30,22 @@ definePageMeta({
       >
         <Filter />
       </Button>
-      <Button>
-        <Plus />
-        {{ $t("btn.new") }}
-      </Button>
+      <ClientDialog>
+        <Button>
+          <Plus />
+          {{ $t("btn.new") }}
+        </Button>
+      </ClientDialog>
     </header>
 
     <main class="w-full overflow-hidden relative">
       <ClientDataTable />
     </main>
 
-    <footer class="flex justify-center">
+    <footer
+      v-if="clientsStore.hasMore"
+      class="flex justify-center"
+    >
       <Button
         variant="ghost"
         size="sm"
