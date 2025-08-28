@@ -39,8 +39,10 @@ export interface IClient {
 
   // relations
   creator?: TNull<IUser>;
-  contacts?: IClientContact[];
+  contacts?: TNull<IClientContact[]>;
 }
+export type IClientCreate = Omit<IClient, "id" | "createdBy" | "createdAt" | "updatedAt" | "deletedAt" | "creator" | "contacts">;
+export type IClientUpdate = Partial<IClientCreate>;
 
 export interface IClientContact {
   clientId: string;
