@@ -43,16 +43,6 @@ export async function findSession(key: IAuthSessionKey): Promise<IAuthSession> {
       user: {
         include: {
           authSessions: true,
-          logsAsActor: {
-            include: {
-              target: true,
-            },
-          },
-          logsAsTarget: {
-            include: {
-              actor: true,
-            },
-          },
         },
       },
     },
