@@ -6,11 +6,15 @@
     "preferences": "Préférences",
     "cancel": "Annuler",
     "save": "Enregistrer",
-    "new": "Nouveau | Nouvelle"
+    "new": "Nouveau | Nouvelle",
+    "archive": "Archiver",
+    "copy-id": "Copier l'identifiant",
+    "load-more": "Charger plus"
   },
   "labels": {
     "dates": {
-      "created-at-with-time": "Créé le {date} à {time} | Créée le {date} à {time}"
+      "created-at-with-time": "Créé le {date} à {time} | Créée le {date} à {time}",
+      "with-time": "{date} à {time}"
     },
     "roles": {
       "admin": "Administateur",
@@ -33,7 +37,12 @@
       "light": "Clair",
       "dark": "Sombre",
       "system": "Automatique"
-    }
+    },
+    "client-types": {
+      "company": "Entreprise",
+      "individual": "Particulier"
+    },
+    "copied": "Copié ! | Copiée !"
   },
   "validations": {
     "valid-email": "Entrez une adresse e-mail valide.",
@@ -78,7 +87,24 @@
   },
   "crm": {
     "clients": {
-      "title": "Clients"
+      "title": "Clients",
+      "table": {
+        "headers": {
+          "name": "Nom / Raison sociale",
+          "type": "Type",
+          "legal-form": "Forme légale",
+          "address": "Adresse",
+          "registration-number": "Numéro d'enregistrement",
+          "siret": "SIRET",
+          "website": "Site internet",
+          "created-by": "Créé par",
+          "created-at": "Créé le"
+        },
+        "actions": {
+          "access": "Accéder à la fiche",
+          "download": "Télécharger la fiche"
+        }
+      }
     },
     "contacts": {
       "title": "Contacts"

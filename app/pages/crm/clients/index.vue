@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import Page from "~/components/shared/primitives/layout/Page.vue";
-import { Filter, Plus, Search } from "lucide-vue-next";
+import { ArrowDown, Filter, LoaderCircle, Plus, Search } from "lucide-vue-next";
+import ClientDataTable from "~/components/shared/clients/data-table/ClientDataTable.vue";
 
 definePageMeta({
   displayName: "crm.clients",
@@ -29,12 +30,22 @@ definePageMeta({
       </Button>
     </header>
 
-    <main>
-      <!-- todo: data table -->
+    <main class="w-full overflow-hidden relative">
+      <ClientDataTable />
     </main>
 
-    <footer>
-      <!-- todo: pagination -->
+    <footer class="flex justify-center">
+      <Button
+        variant="ghost"
+        size="sm"
+      >
+        <LoaderCircle
+          v-if="false"
+          class="animate-spin"
+        />
+        <ArrowDown v-else />
+        {{ $t("btn.load-more") }}
+      </Button>
     </footer>
   </Page>
 </template>
