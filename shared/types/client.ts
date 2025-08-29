@@ -55,6 +55,7 @@ export interface IClientContact {
   updatedAt: Date;
 
   // relations
+  creator?: TNull<IUser>;
   client?: TNull<IClient>;
   contact?: TNull<IContact>;
 }

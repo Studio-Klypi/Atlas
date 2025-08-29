@@ -31,11 +31,12 @@ model User {
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?
 
-  authSessions    AuthSession[]
-  logsAsActor     AuditLog[]    @relation(name: "actor")
-  logsAsTarget    AuditLog[]    @relation(name: "target")
-  createdContacts Contact[]
-  createdClients  Client[]
+  authSessions                     AuthSession[]
+  logsAsActor                      AuditLog[]      @relation(name: "actor")
+  logsAsTarget                     AuditLog[]      @relation(name: "target")
+  createdContacts                  Contact[]
+  createdClients                   Client[]
+  createdClientContactAssociations ClientContact[]
 
   @@map("users")
 }
@@ -170,6 +171,7 @@ model ClientContact {
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
 
+  creator User?   @relation(fields: [createdBy], references: [id], onDelete: SetNull)
   client  Client  @relation(fields: [clientId], references: [id], onDelete: Cascade)
   contact Contact @relation(fields: [contactId], references: [id], onDelete: Cascade)
 
