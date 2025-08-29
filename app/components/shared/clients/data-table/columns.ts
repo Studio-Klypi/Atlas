@@ -90,8 +90,8 @@ export const columns = (): ColumnDef<IClient>[] => {
         const { creator } = row.original;
         if (!creator) return h("div", "-");
 
-        const avatar = h(Avatar, [
-          h(AvatarFallback, `${creator.firstname[0]}${creator.lastname[0]}`),
+        const avatar = h(Avatar, { class: "size-6" }, [
+          h(AvatarFallback, { class: "text-xs" }, `${creator.firstname[0]}${creator.lastname[0]}`),
         ]);
         const name = h("p", { class: "text-sm" }, `${creator.firstname} ${creator.lastname}`);
 
