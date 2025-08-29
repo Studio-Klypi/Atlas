@@ -2,6 +2,29 @@ import type { IClient, IClientCreate, IClientUpdate } from "#shared/types/client
 import type { PrismaClientKnownRequestError } from "@prisma/client/runtime/binary";
 import orm from "../index";
 import type { IListResponse } from "#shared/types/primitives";
+import * as UserModel from "./user";
+
+/**
+ * Purify client object
+ * @param client - Client object
+ * @returns - Purified client object
+ */
+export function purify(client: IClient): IClient {
+  return {
+    ...client,
+    creator: client.creator ? UserModel.purify(client.creator as IRichUser) : null,
+    contacts: client.contacts?.map(c => ({
+      ...c,
+      creator: c.creator ? UserModel.purify(c.creator as IRichUser) : null,
+      contact: c.contact
+        ? {
+            ...c.contact,
+            creator: c.contact.creator ? UserModel.purify(c.contact.creator as IRichUser) : null,
+          }
+        : null,
+    })) ?? [],
+  };
+}
 
 /**
  * Create a new client
@@ -12,7 +35,7 @@ import type { IListResponse } from "#shared/types/primitives";
  */
 export async function create(payload: IClientCreate, creatorId?: string): Promise<IClient> {
   try {
-    return await orm.client.create({
+    return purify(await orm.client.create({
       data: {
         ...payload,
         createdBy: creatorId ?? null,
@@ -21,7 +44,7 @@ export async function create(payload: IClientCreate, creatorId?: string): Promis
         creator: true,
         contacts: true,
       },
-    });
+    }));
   }
   catch (e) {
     switch ((e as PrismaClientKnownRequestError).code) {
@@ -44,7 +67,7 @@ export async function create(payload: IClientCreate, creatorId?: string): Promis
  */
 export async function update(id: string, payload: IClientUpdate): Promise<IClient> {
   if (!await exists(id)) throw new Error("Client not found");
-  return orm.client.update({
+  return purify(await orm.client.update({
     where: {
       id,
       deletedAt: null,
@@ -56,7 +79,7 @@ export async function update(id: string, payload: IClientUpdate): Promise<IClien
       creator: true,
       contacts: true,
     },
-  });
+  }));
 }
 
 /**
@@ -67,7 +90,7 @@ export async function update(id: string, payload: IClientUpdate): Promise<IClien
  */
 export async function archive(id: string): Promise<IClient> {
   if (!await exists(id)) throw new Error("Client not found");
-  return orm.client.update({
+  return purify(await orm.client.update({
     where: {
       id,
       deletedAt: null,
@@ -79,7 +102,7 @@ export async function archive(id: string): Promise<IClient> {
       creator: true,
       contacts: true,
     },
-  });
+  }));
 }
 
 /**
@@ -90,7 +113,7 @@ export async function archive(id: string): Promise<IClient> {
  */
 export async function restore(id: string): Promise<IClient> {
   if (!await exists(id, true)) throw new Error("Client not found");
-  return orm.client.update({
+  return purify(await orm.client.update({
     where: {
       id,
       deletedAt: {
@@ -104,7 +127,7 @@ export async function restore(id: string): Promise<IClient> {
       creator: true,
       contacts: true,
     },
-  });
+  }));
 }
 
 /**
@@ -115,12 +138,12 @@ export async function restore(id: string): Promise<IClient> {
  */
 export async function destroy(id: string): Promise<IClient> {
   if (!await exists(id)) throw new Error("Client not found");
-  return orm.client.delete({
+  return purify(await orm.client.delete({
     where: {
       id,
       deletedAt: null,
     },
-  });
+  }));
 }
 
 /**
@@ -149,7 +172,7 @@ export async function findOne(id: string): Promise<IClient> {
     },
   });
   if (!client) throw new Error("Client not found");
-  return client; // Todo: fix it later (to figure out)
+  return purify(client);
 }
 
 /**
@@ -180,7 +203,7 @@ export async function findAll(skip: number = 0, take: number = 30, archived: boo
     },
   });
   return {
-    data,
+    data: data.map(client => purify(client)),
     total,
   };
 }
