@@ -3,6 +3,7 @@ import * as AuditLogModel from "~~/prisma/models/audit-log";
 
 export async function updateProfile(event: HttpEvent) {
   const user = event.context.user;
+  const agent = event.context.agent;
   const body = await readBody<IUserUpdate>(event);
 
   try {
@@ -11,7 +12,7 @@ export async function updateProfile(event: HttpEvent) {
     await AuditLogModel.create({
       actorId: user.id,
       action: "user.update-profile",
-      agent: getHeader(event, "user-agent") ?? "unknown",
+      agent,
       status: "success",
       meta: {
         body,
@@ -26,7 +27,7 @@ export async function updateProfile(event: HttpEvent) {
     await AuditLogModel.create({
       actorId: user.id,
       action: "user.update-profile",
-      agent: getHeader(event, "user-agent") ?? "unknown",
+      agent,
       status: "failure",
       meta: {
         error: "Failed to update profile",

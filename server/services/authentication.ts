@@ -37,7 +37,7 @@ export async function login(event: HttpEvent) {
     email: string;
     password: string;
   }>(event);
-  const agent = getHeader(event, "user-agent") ?? "unknown";
+  const agent = event.context.agent;
 
   try {
     const user = await UserModel.authenticate(body.email, body.password);
@@ -78,6 +78,7 @@ export async function login(event: HttpEvent) {
 export async function logout(event: HttpEvent) {
   const key = getCookies(event);
   const user = event.context.user;
+  const agent = event.context.agent;
   if (!key) return;
 
   try {
@@ -87,7 +88,7 @@ export async function logout(event: HttpEvent) {
     await AuditLogModel.create({
       actorId: user.id,
       action: "auth.logout",
-      agent: getHeader(event, "user-agent") ?? "unknown",
+      agent,
       status: "success",
     });
 
@@ -98,7 +99,7 @@ export async function logout(event: HttpEvent) {
     await AuditLogModel.create({
       actorId: user.id,
       action: "auth.logout",
-      agent: getHeader(event, "user-agent") ?? "unknown",
+      agent,
       status: "failure",
       meta: {
         error: "Failed to logout",
@@ -114,6 +115,7 @@ export async function logout(event: HttpEvent) {
 
 export async function revokeAllSessions(event: HttpEvent) {
   const user = event.context.user;
+  const agent = event.context.agent;
   if (!user) return;
 
   try {
@@ -121,7 +123,7 @@ export async function revokeAllSessions(event: HttpEvent) {
     await AuditLogModel.create({
       actorId: user.id,
       action: "auth.logout-everywhere",
-      agent: getHeader(event, "user-agent") ?? "unknown",
+      agent,
       status: "success",
     });
     return;
@@ -131,7 +133,7 @@ export async function revokeAllSessions(event: HttpEvent) {
     await AuditLogModel.create({
       actorId: user.id,
       action: "auth.logout-everywhere",
-      agent: getHeader(event, "user-agent") ?? "unknown",
+      agent,
       status: "failure",
     });
     return {

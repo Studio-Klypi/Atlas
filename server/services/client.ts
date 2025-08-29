@@ -3,7 +3,7 @@ import * as ClientModel from "~~/prisma/models/client";
 
 export async function recoverClients(event: HttpEvent) {
   const user = event.context.user;
-  const agent = getHeader(event, "user-agent") ?? "unknown";
+  const agent = event.context.agent;
   const query = getQuery<{
     perPage?: string;
     page?: string;
@@ -54,7 +54,7 @@ export async function recoverClients(event: HttpEvent) {
 export async function createClient(event: HttpEvent) {
   const user = event.context.user;
   const body = await readBody<IClientCreate>(event);
-  const agent = getHeader(event, "user-agent") ?? "unknown";
+  const agent = event.context.agent;
 
   try {
     const client = await ClientModel.create(body, user.id);
