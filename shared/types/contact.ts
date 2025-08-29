@@ -6,7 +6,7 @@ export interface IContact {
   id: string;
   firstname: string;
   lastname: string;
-  email: string;
+  email?: TNull<string>;
   phone?: TNull<string>;
   notes?: TNull<string>;
   createdBy?: TNull<string>;
