@@ -114,7 +114,8 @@
         },
         "actions": {
           "access": "Accéder à la fiche",
-          "download": "Télécharger la fiche"
+          "download": "Télécharger la fiche",
+          "edit": "Éditer la fiche"
         }
       },
       "dialogs": {

@@ -88,3 +88,32 @@ export async function createClient(event: HttpEvent) {
     };
   }
 }
+
+export async function updateClient(event: HttpEvent) {
+  const { user, agent } = event.context;
+  const clientId = getRouterParam(event, "clientId");
+  if (!user || !clientId) return;
+
+  const body = await readBody<IClientUpdate>(event);
+
+  try {
+    const client = await ClientModel.update(clientId, body);
+    event.node.res.statusCode = 202;
+    return client;
+  }
+  catch {
+    await AuditLogModel.create({
+      actorId: user.id,
+      action: "client.update",
+      agent,
+      status: "failure",
+      meta: {
+        error: "Failed to update client",
+      },
+    });
+
+    return {
+      error: "Failed to update client",
+    };
+  }
+}

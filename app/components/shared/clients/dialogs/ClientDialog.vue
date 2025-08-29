@@ -104,7 +104,9 @@ const handleSubmit = form.handleSubmit(async (values) => {
     siren: values.siret ? values.siret.substring(0, 9) : undefined,
   };
 
-  const status = editMode.value ? false : await clientsStore.createClient(payload);
+  const status = editMode.value
+    ? await clientsStore.saveClientInfo((client.value as IClient).id, payload as IClientUpdate)
+    : await clientsStore.createClient(payload as IClientCreate);
   open.value = !status;
 });
 </script>
@@ -117,7 +119,7 @@ const handleSubmit = form.handleSubmit(async (values) => {
 
     <DialogContent class="max-h-[calc(100dvh-3rem)] sm:max-h-[80dvh] overflow-y-auto">
       <DialogHeader>
-        <DialogTitle>{{ editMode ? client.name : $t("crm.clients.dialogs.create.title") }}</DialogTitle>
+        <DialogTitle>{{ editMode ? client?.name : $t("crm.clients.dialogs.create.title") }}</DialogTitle>
         <DialogDescription>{{ $t(editMode ? "crm.clients.dialogs.edit.caption" : "crm.clients.dialogs.create.caption") }}</DialogDescription>
       </DialogHeader>
 
@@ -386,7 +388,10 @@ const handleSubmit = form.handleSubmit(async (values) => {
               {{ $t("btn.cancel") }}
             </Button>
           </DialogClose>
-          <Button type="submit">
+          <Button
+            type="submit"
+            :disabled="editMode ? loading.updatingClient : loading.creatingClient"
+          >
             <template v-if="editMode">
               <LoaderCircle
                 v-if="loading.updatingClient"

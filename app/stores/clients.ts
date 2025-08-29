@@ -63,6 +63,7 @@ export const useClientsStore = defineStore("clients", {
         this.loading.fetchingClients = false;
       }
     },
+
     async createClient(payload: IClientCreate): Promise<boolean> {
       this.loading.creatingClient = true;
       let state = true;
@@ -84,6 +85,28 @@ export const useClientsStore = defineStore("clients", {
       }
       finally {
         this.loading.creatingClient = false;
+      }
+
+      return state;
+    },
+    async saveClientInfo(clientId: string, payload: IClientUpdate): Promise<boolean> {
+      this.loading.updatingClient = true;
+      let state = true;
+
+      try {
+        const client = await $fetch<IClient>(`/api/clients/${clientId}`, {
+          method: "PUT",
+          body: payload,
+        });
+
+        this.clients = this.clients.map(c => c.id === clientId ? { ...client } : c);
+      }
+      catch (e) {
+        state = false;
+        console.error(e);
+      }
+      finally {
+        this.loading.updatingClient = false;
       }
 
       return state;
