@@ -4,34 +4,6 @@ import { AvatarFallback } from "~/components/ui/avatar";
 import { parseShortDate, parseShortTime } from "#shared/helpers/date";
 import ClientDataTableOptions from "~/components/shared/clients/data-table/ClientDataTableOptions.vue";
 
-/**
- * id: string;
- *   type: EClientType;
- *   name: string;
- *   legalForm?: TNull<string>;
- *   street: string;
- *   zip: string;
- *   city: string;
- *   country: string;
- *   registrationNumber?: TNull<string>;
- *   siren?: TNull<string>;
- *   siret?: TNull<string>;
- *   vatNumber?: TNull<string>;
- *   billingCurrency: ECurrency;
- *   email?: TNull<string>;
- *   phone?: TNull<string>;
- *   website?: TNull<string>;
- *   notes?: TNull<string>;
- *   createdBy?: TNull<string>;
- *   createdAt: Date;
- *   updatedAt: Date;
- *   deletedAt?: TNull<Date>;
- *
- *   // relations
- *   creator?: TNull<IUser>;
- *   contacts?: IClientContact[];
- */
-
 export const columns = (): ColumnDef<IClient>[] => {
   const { t, locale } = useNuxtApp().$i18n;
 
