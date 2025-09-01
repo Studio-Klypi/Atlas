@@ -41,7 +41,7 @@ else clientsStore.loadClients();
         :columns="columns()"
         :data="clientsStore.activeClients"
         row-link-key="id"
-        row-link="/crm/clients/{key}"
+        row-link="/clients/{key}"
       />
       <footer
         v-if="clientsStore.hasMoreClients"
@@ -67,7 +67,7 @@ else clientsStore.loadClients();
         :columns="columns()"
         :data="clientsStore.archivedClients"
         row-link-key="id"
-        row-link="/crm/clients/{key}"
+        row-link="/clients/{key}"
       />
       <footer
         v-if="clientsStore.hasMoreArchives"

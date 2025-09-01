@@ -27,12 +27,12 @@ const groups = [
       {
         icon: Building,
         label: "clients",
-        href: "/crm/clients",
+        href: "/clients",
       },
       {
         icon: Contact,
         label: "contacts",
-        href: "/crm/contacts",
+        href: "/contacts",
       },
     ],
   },

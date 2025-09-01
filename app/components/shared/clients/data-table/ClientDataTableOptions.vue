@@ -31,7 +31,7 @@ const isArchived = computed(() => !!props.client.deletedAt);
       <DropdownMenuContent align="end">
         <DropdownMenuGroup>
           <DropdownMenuItem as-child>
-            <NuxtLinkLocale :to="`/crm/clients/${client.id}`">
+            <NuxtLinkLocale :to="`/clients/${client.id}`">
               <Eye />
               {{ $t("crm.clients.table.actions.access") }}
             </NuxtLinkLocale>
