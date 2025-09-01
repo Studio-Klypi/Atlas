@@ -20,6 +20,7 @@
   },
   "labels": {
     "optional": "(optionnel) | (optionnelle)",
+    "no-results": "Aucun résultats...",
     "dates": {
       "created-at-with-time": "Créé le {date} à {time} | Créée le {date} à {time}",
       "with-time": "{date} à {time}"
