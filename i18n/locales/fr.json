@@ -1,4 +1,9 @@
 {
+  "brand": {
+    "tab-templates": {
+      "default": "Atlas · {page}"
+    }
+  },
   "btn": {
     "log-in": "Me connecter",
     "log-out": "Déconnexion",

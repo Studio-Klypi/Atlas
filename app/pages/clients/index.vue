@@ -4,8 +4,13 @@ import { Filter, Plus, Search } from "lucide-vue-next";
 import ClientDataTable from "~/components/shared/clients/data-table/ClientDataTable.vue";
 import ClientDialog from "~/components/shared/clients/dialogs/ClientDialog.vue";
 
+const { t } = useI18n();
+
 definePageMeta({
   displayName: "crm.clients",
+});
+useHead({
+  title: t("brand.tab-templates.default", { page: t("crm.clients.title") }),
 });
 </script>
 
