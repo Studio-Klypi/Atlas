@@ -29,23 +29,25 @@ const isArchived = computed(() => !!props.client.deletedAt);
       </DropdownMenuTrigger>
 
       <DropdownMenuContent align="end">
-        <DropdownMenuGroup>
-          <DropdownMenuItem as-child>
-            <NuxtLinkLocale :to="`/clients/${client.id}`">
-              <Eye />
-              {{ $t("crm.clients.table.actions.access") }}
-            </NuxtLinkLocale>
-          </DropdownMenuItem>
-          <DropdownMenuItem @click="editOpen = true">
-            <Edit />
-            {{ $t("crm.clients.table.actions.edit") }}
-          </DropdownMenuItem>
-          <DropdownMenuItem disabled>
-            <Download />
-            {{ $t("crm.clients.table.actions.download") }}
-          </DropdownMenuItem>
-        </DropdownMenuGroup>
-        <DropdownMenuSeparator />
+        <template v-if="!isArchived">
+          <DropdownMenuGroup>
+            <DropdownMenuItem as-child>
+              <NuxtLinkLocale :to="`/clients/${client.id}`">
+                <Eye />
+                {{ $t("crm.clients.table.actions.access") }}
+              </NuxtLinkLocale>
+            </DropdownMenuItem>
+            <DropdownMenuItem @click="editOpen = true">
+              <Edit />
+              {{ $t("crm.clients.table.actions.edit") }}
+            </DropdownMenuItem>
+            <DropdownMenuItem disabled>
+              <Download />
+              {{ $t("crm.clients.table.actions.download") }}
+            </DropdownMenuItem>
+          </DropdownMenuGroup>
+          <DropdownMenuSeparator />
+        </template>
         <DropdownMenuGroup>
           <DropdownMenuItem
             v-if="isArchived"
