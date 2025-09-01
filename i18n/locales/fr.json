@@ -5,6 +5,7 @@
     "profile": "Mon profil",
     "preferences": "Préférences",
     "cancel": "Annuler",
+    "confirm": "Confirmer",
     "save": "Enregistrer",
     "new": "Nouveau | Nouvelle",
     "archive": "Archiver",
@@ -67,6 +68,12 @@
     }
   },
   "dialogs": {
+    "defaults": {
+      "confirm": {
+        "title": "Êtes-vous sûr ?",
+        "caption": "Cette action est définitive. Aucun retour en arrière ne sera possible. Souhaitez-vous tout de même continuer ?"
+      }
+    },
     "preferences": {
       "title": "Préférences",
       "caption": "Configurez votre profil, votre interface et vos préférences de notifications afin de vous assurer la meilleure expérience de navigation possible.",
