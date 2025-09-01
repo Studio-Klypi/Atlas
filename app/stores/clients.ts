@@ -1,15 +1,18 @@
 import type { IListResponse } from "#shared/types/primitives";
 
 interface ClientsState {
-  clients: IClient[];
-  list: {
-    page: number;
-    archived: boolean;
+  clients: {
+    list: IClient[];
+    total: number;
+  };
+  archived: {
+    list: IClient[];
     total: number;
   };
   selectedClient: IClient | null;
   loading: {
     fetchingClients: boolean;
+    fetchingArchives: boolean;
     fetchingClient: boolean;
     creatingClient: boolean;
     updatingClient: boolean;
@@ -18,49 +21,75 @@ interface ClientsState {
 
 export const useClientsStore = defineStore("clients", {
   state: (): ClientsState => ({
-    clients: [],
-    list: {
-      page: 0,
-      archived: false,
-      total: 30,
+    clients: {
+      list: [],
+      total: -1,
+    },
+    archived: {
+      list: [],
+      total: -1,
     },
     selectedClient: null,
     loading: {
       fetchingClients: false,
+      fetchingArchives: false,
       fetchingClient: false,
       creatingClient: false,
       updatingClient: false,
     },
   }),
   getters: {
-    hasMore: state => state.clients.length < state.list.total,
+    hasMoreClients: state => state.clients.list.length < state.clients.total,
+    hasMoreArchives: state => state.archived.list.length < state.archived.total,
+    activeClients: state => state.clients.list,
+    archivedClients: state => state.archived.list,
   },
   actions: {
-    async loadClients(page?: number, archived?: boolean) {
-      if (!this.hasMore) return;
-      if (this.list.page === page) return;
+    async loadClients() {
+      if (this.clients.total !== -1 && !this.hasMoreClients) return;
 
       this.loading.fetchingClients = true;
 
       try {
         const { data } = await useFetch<IListResponse<IClient>>("/api/clients", {
           params: {
-            page,
-            archived,
+            offset: this.clients.list.length,
           },
         });
         if (!data.value) return;
-        this.list.total = data.value.total;
-        this.clients = [...this.clients, ...data.value.data];
 
-        this.list.page = page ?? 1;
-        this.list.archived = archived ?? false;
+        this.clients.total = data.value.total;
+        this.clients.list = [...this.clients.list, ...data.value.data];
       }
       catch (e) {
         console.error(e);
       }
       finally {
         this.loading.fetchingClients = false;
+      }
+    },
+    async loadArchives() {
+      if (this.archived.total !== -1 && !this.hasMoreArchives) return;
+
+      this.loading.fetchingArchives = true;
+
+      try {
+        const { data } = await useFetch<IListResponse<IClient>>("/api/clients", {
+          params: {
+            offset: this.archived.list.length,
+            archived: true,
+          },
+        });
+        if (!data.value) return;
+
+        this.archived.total = data.value.total;
+        this.archived.list = [...this.archived.list, ...data.value.data];
+      }
+      catch (e) {
+        console.error(e);
+      }
+      finally {
+        this.loading.fetchingArchives = false;
       }
     },
 
@@ -74,9 +103,9 @@ export const useClientsStore = defineStore("clients", {
           body: payload,
         });
 
-        this.clients = [
+        this.clients.list = [
           client,
-          ...this.clients,
+          ...this.clients.list,
         ];
       }
       catch (e) {
@@ -99,7 +128,7 @@ export const useClientsStore = defineStore("clients", {
           body: payload,
         });
 
-        this.clients = this.clients.map(c => c.id === clientId ? { ...client } : c);
+        this.clients.list = this.clients.list.map(c => c.id === clientId ? { ...client } : c);
       }
       catch (e) {
         state = false;
@@ -110,6 +139,27 @@ export const useClientsStore = defineStore("clients", {
       }
 
       return state;
+    },
+    async archiveClient(clientId: string) {
+      try {
+        const client = await $fetch<IClient>(`/api/clients/${clientId}/archive`, {
+          method: "DELETE",
+        });
+        if (!client) return;
+
+        this.clients.list = this.clients.list.filter(c => c.id !== clientId);
+        this.clients.total--;
+
+        if (this.archived.total === -1) return;
+        this.archived.list = [
+          client,
+          ...this.archived.list,
+        ];
+        this.archived.total++;
+      }
+      catch (e) {
+        console.error(e);
+      }
     },
   },
 });

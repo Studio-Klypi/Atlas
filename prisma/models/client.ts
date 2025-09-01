@@ -187,9 +187,13 @@ export async function findAll(skip: number = 0, take: number = 30, archived: boo
     where: {
       deletedAt: archived ? { not: null } : null,
     },
-    orderBy: {
-      createdAt: "desc",
-    },
+    orderBy: archived
+      ? {
+          deletedAt: "desc",
+        }
+      : {
+          createdAt: "desc",
+        },
     take,
     skip,
     include: {

@@ -122,7 +122,9 @@
         "actions": {
           "access": "Accéder à la fiche",
           "download": "Télécharger la fiche",
-          "edit": "Éditer la fiche"
+          "edit": "Éditer la fiche",
+          "archive": "Archiver le client",
+          "restore": "Restaurer le client"
         }
       },
       "dialogs": {
@@ -146,7 +148,16 @@
         },
         "edit": {
           "caption": "Tenir un client à jour est important ! Tout information complémentaire est bonne à prendre."
+        },
+        "archive-confirm": {
+          "caption": "Archiver ce client implique qu'il ne vous sera plus possible de modifier la fiche ou ajouter des entrées.",
+          "cancel": "Non, annuler",
+          "confirm": "Oui, archiver"
         }
+      },
+      "tabs": {
+        "active": "Actifs",
+        "archived": "Archivés"
       }
     },
     "contacts": {

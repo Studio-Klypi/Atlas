@@ -1,15 +1,19 @@
 <script setup lang="ts">
-import { Archive, Check, Copy, Download, Edit, Eye, MoreHorizontal } from "lucide-vue-next";
+import { Archive, ArchiveRestore, Check, Copy, Download, Edit, Eye, MoreHorizontal } from "lucide-vue-next";
 import { useClipboard } from "@vueuse/core";
 import ClientDialog from "~/components/shared/clients/dialogs/ClientDialog.vue";
+import ConfirmDialog from "~/components/shared/dialogs/ConfirmDialog.vue";
 
-defineProps<{
+const props = defineProps<{
   client: IClient;
 }>();
 
 const { copy, copied } = useClipboard();
+const clientsStore = useClientsStore();
 
 const editOpen = ref<boolean>(false);
+const archiveConfirmOpen = ref<boolean>(false);
+const isArchived = computed(() => !!props.client.deletedAt);
 </script>
 
 <template>
@@ -43,9 +47,20 @@ const editOpen = ref<boolean>(false);
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem variant="destructive">
+          <DropdownMenuItem
+            v-if="isArchived"
+            disabled
+          >
+            <ArchiveRestore />
+            {{ $t("crm.clients.table.actions.restore") }}
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            v-else
+            variant="destructive"
+            @click="archiveConfirmOpen = true"
+          >
             <Archive />
-            {{ $t("btn.archive") }}
+            {{ $t("crm.clients.table.actions.archive") }}
           </DropdownMenuItem>
           <DropdownMenuItem @click="copy(client.id)">
             <template v-if="copied">
@@ -64,6 +79,13 @@ const editOpen = ref<boolean>(false);
     <ClientDialog
       v-model:open="editOpen"
       :client="client"
+    />
+    <ConfirmDialog
+      v-model:open="archiveConfirmOpen"
+      caption-key="crm.clients.dialogs.archive-confirm.caption"
+      cancel-key="crm.clients.dialogs.archive-confirm.cancel"
+      confirm-key="crm.clients.dialogs.archive-confirm.confirm"
+      @confirm="clientsStore.archiveClient(client.id)"
     />
   </div>
 </template>

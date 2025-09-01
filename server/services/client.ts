@@ -5,13 +5,12 @@ export async function recoverClients(event: HttpEvent) {
   const user = event.context.user;
   const agent = event.context.agent;
   const query = getQuery<{
-    perPage?: string;
-    page?: string;
+    offset?: string;
     archived?: string;
   }>(event);
 
-  const take = Number(query.perPage || 30);
-  const skip = (Number(query.page || 1) - 1) * take;
+  const take = 30;
+  const skip = query.offset ? Number(query.offset) : 0;
   const archived = query.archived === "true";
 
   try {
@@ -114,6 +113,44 @@ export async function updateClient(event: HttpEvent) {
 
     return {
       error: "Failed to update client",
+    };
+  }
+}
+
+export async function archiveClient(event: HttpEvent) {
+  const { user, agent } = event.context;
+  const id = getRouterParam(event, "clientId");
+  if (!user || !id) return;
+
+  try {
+    const client = await ClientModel.archive(id);
+
+    await AuditLogModel.create({
+      actorId: user.id,
+      action: "client.archive",
+      agent,
+      status: "success",
+      meta: {
+        id,
+        archivedAt: client.deletedAt,
+      },
+    });
+
+    event.node.res.statusCode = 202;
+    return client;
+  }
+  catch {
+    await AuditLogModel.create({
+      actorId: user.id,
+      action: "client.archive",
+      agent,
+      status: "failure",
+      meta: {
+        id,
+      },
+    });
+    return {
+      error: "Failed to archive client",
     };
   }
 }
