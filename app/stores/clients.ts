@@ -154,8 +154,29 @@ export const useClientsStore = defineStore("clients", {
         this.archived.list = [
           client,
           ...this.archived.list,
-        ];
+        ].sort((a, b) => new Date(b.deletedAt as Date).getTime() - new Date(a.deletedAt as Date).getTime());
         this.archived.total++;
+      }
+      catch (e) {
+        console.error(e);
+      }
+    },
+    async restoreClient(clientId: string) {
+      try {
+        const client = await $fetch<IClient>(`/api/clients/${clientId}/restore`, {
+          method: "PATCH",
+        });
+        if (!client) return;
+
+        this.archived.list = this.archived.list.filter(c => c.id !== clientId);
+        this.archived.total--;
+
+        if (this.clients.total === -1) return;
+        this.clients.list = [
+          client,
+          ...this.clients.list,
+        ].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+        this.clients.total++;
       }
       catch (e) {
         console.error(e);

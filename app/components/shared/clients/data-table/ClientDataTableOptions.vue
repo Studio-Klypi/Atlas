@@ -49,7 +49,7 @@ const isArchived = computed(() => !!props.client.deletedAt);
         <DropdownMenuGroup>
           <DropdownMenuItem
             v-if="isArchived"
-            disabled
+            @click="clientsStore.restoreClient(client.id)"
           >
             <ArchiveRestore />
             {{ $t("crm.clients.table.actions.restore") }}

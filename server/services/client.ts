@@ -154,3 +154,40 @@ export async function archiveClient(event: HttpEvent) {
     };
   }
 }
+
+export async function restoreClient(event: HttpEvent) {
+  const { user, agent } = event.context;
+  const id = getRouterParam(event, "clientId");
+  if (!user || !id) return;
+
+  try {
+    const client = await ClientModel.restore(id);
+
+    await AuditLogModel.create({
+      actorId: user.id,
+      action: "client.restore",
+      agent,
+      status: "success",
+      meta: {
+        id,
+      },
+    });
+
+    event.node.res.statusCode = 202;
+    return client;
+  }
+  catch {
+    await AuditLogModel.create({
+      actorId: user.id,
+      action: "client.restore",
+      agent,
+      status: "failure",
+      meta: {
+        id,
+      },
+    });
+    return {
+      error: "Failed to restore client",
+    };
+  }
+}
