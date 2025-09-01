@@ -1,14 +1,12 @@
 <script setup lang="ts">
 import Page from "~/components/shared/primitives/layout/Page.vue";
-import { ArrowDown, Filter, LoaderCircle, Plus, Search } from "lucide-vue-next";
+import { Filter, Plus, Search } from "lucide-vue-next";
 import ClientDataTable from "~/components/shared/clients/data-table/ClientDataTable.vue";
 import ClientDialog from "~/components/shared/clients/dialogs/ClientDialog.vue";
 
 definePageMeta({
   displayName: "crm.clients",
 });
-
-const clientsStore = useClientsStore();
 </script>
 
 <template>
