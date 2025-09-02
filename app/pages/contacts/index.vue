@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import Page from "@/components/shared/primitives/layout/Page.vue";
+import ContactDataTable from "~/components/shared/contacts/data-table/ContactDataTable.vue";
+import { Filter, Plus, Search } from "lucide-vue-next";
+import ClientDialog from "~/components/shared/clients/dialogs/ClientDialog.vue";
 
 const { t } = useI18n();
 
@@ -13,6 +16,28 @@ useHead({
 
 <template>
   <Page name="crm.contacts.list">
-    crm contacts list
+    <ContactDataTable>
+      <header class="flex items-center gap-2">
+        <div class="relative flex-1">
+          <Input
+            placeholder="Search..."
+            class="pl-8"
+            disabled
+          />
+          <Search class="size-4 absolute top-2.5 left-2.5 text-muted-foreground" />
+        </div>
+        <Button
+          size="icon"
+          variant="outline"
+        >
+          <Filter />
+        </Button>
+        <!-- todo: add contact dialog -->
+        <Button>
+          <Plus />
+          {{ $t("btn.new") }}
+        </Button>
+      </header>
+    </ContactDataTable>
   </Page>
 </template>

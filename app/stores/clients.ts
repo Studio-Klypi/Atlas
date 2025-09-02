@@ -1,23 +1,5 @@
 import type { IListResponse } from "#shared/types/primitives";
-
-interface ClientsState {
-  clients: {
-    list: IClient[];
-    total: number;
-  };
-  archived: {
-    list: IClient[];
-    total: number;
-  };
-  selectedClient: IClient | null;
-  loading: {
-    fetchingClients: boolean;
-    fetchingArchives: boolean;
-    fetchingClient: boolean;
-    creatingClient: boolean;
-    updatingClient: boolean;
-  };
-}
+import type { ClientsState } from "#shared/types/store-states";
 
 export const useClientsStore = defineStore("clients", {
   state: (): ClientsState => ({

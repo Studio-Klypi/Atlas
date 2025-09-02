@@ -61,6 +61,12 @@
     "copied": "Copié ! | Copiée !",
     "placeholders": {
       "write-notes": "Écrivez vos notes ici..."
+    },
+    "table": {
+      "headers": {
+        "created-at": "Créé  le | Créée le",
+        "created-by": "Créé par | Créée par"
+      }
     }
   },
   "validations": {
@@ -167,7 +173,32 @@
       }
     },
     "contacts": {
-      "title": "Contacts"
+      "title": "Contacts",
+      "table": {
+        "headers": {
+          "name": "Prénom / Nom",
+          "email": "Adresse e-mail",
+          "phone": "Numéro de téléphone"
+        },
+        "actions": {
+          "access": "Accéder à la fiche",
+          "download": "Télécharger la fiche",
+          "edit": "Éditer la fiche",
+          "archive": "Archiver le contact",
+          "restore": "Restaurer le contact"
+        }
+      },
+      "dialogs": {
+        "archive-confirm": {
+          "caption": "Archiver ce contact implique qu'il ne vous sera plus possible de modifier la fiche ou ajouter des entrées.",
+          "cancel": "Non, annuler",
+          "confirm": "Oui, archiver"
+        }
+      },
+      "tabs": {
+        "active": "Actifs",
+        "archived": "Archivés"
+      }
     }
   }
 }

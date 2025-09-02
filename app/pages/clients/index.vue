@@ -22,6 +22,7 @@ useHead({
           <Input
             placeholder="Search..."
             class="pl-8"
+            disabled
           />
           <Search class="size-4 absolute top-2.5 left-2.5 text-muted-foreground" />
         </div>

@@ -187,9 +187,7 @@ export async function findAll(offset: number = 0, archived: boolean = false): Pr
           }
         : null,
     },
-    orderBy: {
-      ...(archived ? { deletedAt: "desc" } : { createdAt: "desc" }),
-    },
+    orderBy: archived ? { deletedAt: "desc" } : { createdAt: "desc" },
     skip: offset,
     take: 30,
     include: {
