@@ -18,3 +18,5 @@ export interface IContact {
   creator?: TNull<IUser>;
   clients?: IClientContact[];
 }
+export type IContactCreate = Omit<IContact, "id" | "createdBy" | "createdAt" | "updatedAt" | "deletedAt" | "creator" | "clients">;
+export type IContactUpdate = Partial<IContactCreate>;
