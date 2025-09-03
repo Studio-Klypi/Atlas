@@ -2,7 +2,7 @@
 import Page from "@/components/shared/primitives/layout/Page.vue";
 import ContactDataTable from "~/components/shared/contacts/data-table/ContactDataTable.vue";
 import { Filter, Plus, Search } from "lucide-vue-next";
-import ClientDialog from "~/components/shared/clients/dialogs/ClientDialog.vue";
+import ContactDialog from "~/components/shared/contacts/dialogs/ContactDialog.vue";
 
 const { t } = useI18n();
 
@@ -32,11 +32,12 @@ useHead({
         >
           <Filter />
         </Button>
-        <!-- todo: add contact dialog -->
-        <Button>
-          <Plus />
-          {{ $t("btn.new") }}
-        </Button>
+        <ContactDialog>
+          <Button>
+            <Plus />
+            {{ $t("btn.new") }}
+          </Button>
+        </ContactDialog>
       </header>
     </ContactDataTable>
   </Page>

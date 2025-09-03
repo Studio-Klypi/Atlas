@@ -4,6 +4,7 @@ import { z } from "zod";
 import { ClientTypes } from "#shared/types/client";
 import { toTypedSchema } from "@vee-validate/zod";
 import { Link, LoaderCircle, Plus, Save } from "lucide-vue-next";
+import OptionalField from "~/components/shared/labels/OptionalField.vue";
 
 const open = defineModel<boolean>("open", { default: false });
 
@@ -177,7 +178,7 @@ const handleSubmit = form.handleSubmit(async (values) => {
           name="legalForm"
         >
           <FormItem class="sm:col-span-2">
-            <FormLabel>{{ $t("crm.clients.dialogs.fields.legal-form") }} <span class="text-xs text-muted-foreground font-normal">{{ $t("labels.optional", 1) }}</span></FormLabel>
+            <FormLabel>{{ $t("crm.clients.dialogs.fields.legal-form") }} <OptionalField /></FormLabel>
             <FormControl v-bind="componentField">
               <Input placeholder="ex. SAS" />
             </FormControl>
@@ -279,7 +280,7 @@ const handleSubmit = form.handleSubmit(async (values) => {
               name="registrationNumber"
             >
               <FormItem class="sm:col-span-2">
-                <FormLabel>{{ $t("crm.clients.dialogs.fields.registration-number") }} <span class="text-xs text-muted-foreground font-normal">{{ $t("labels.optional", 1) }}</span></FormLabel>
+                <FormLabel>{{ $t("crm.clients.dialogs.fields.registration-number") }} <OptionalField /></FormLabel>
                 <FormControl v-bind="componentField">
                   <Input placeholder="ex. 01234567890" />
                 </FormControl>
@@ -290,7 +291,7 @@ const handleSubmit = form.handleSubmit(async (values) => {
               name="siret"
             >
               <FormItem>
-                <FormLabel>{{ $t("crm.clients.dialogs.fields.siret") }} <span class="text-xs text-muted-foreground font-normal">{{ $t("labels.optional", 1) }}</span></FormLabel>
+                <FormLabel>{{ $t("crm.clients.dialogs.fields.siret") }} <OptionalField /></FormLabel>
                 <FormControl v-bind="componentField">
                   <Input placeholder="ex. 012345678" />
                 </FormControl>
@@ -301,7 +302,7 @@ const handleSubmit = form.handleSubmit(async (values) => {
               name="vatNumber"
             >
               <FormItem>
-                <FormLabel>{{ $t("crm.clients.dialogs.fields.vat-number") }} <span class="text-xs text-muted-foreground font-normal">{{ $t("labels.optional", 1) }}</span></FormLabel>
+                <FormLabel>{{ $t("crm.clients.dialogs.fields.vat-number") }} <OptionalField /></FormLabel>
                 <FormControl v-bind="componentField">
                   <Input placeholder="ex. 01234567890001" />
                 </FormControl>
@@ -322,7 +323,7 @@ const handleSubmit = form.handleSubmit(async (values) => {
             name="email"
           >
             <FormItem>
-              <FormLabel>{{ $t("labels.fields.email") }} <span class="text-xs text-muted-foreground font-normal">{{ $t("labels.optional", 1) }}</span></FormLabel>
+              <FormLabel>{{ $t("labels.fields.email") }} <OptionalField /></FormLabel>
               <FormControl v-bind="componentField">
                 <Input
                   type="email"
@@ -336,7 +337,7 @@ const handleSubmit = form.handleSubmit(async (values) => {
             name="phone"
           >
             <FormItem>
-              <FormLabel>{{ $t("labels.fields.phone") }} <span class="text-xs text-muted-foreground font-normal">{{ $t("labels.optional", 1) }}</span></FormLabel>
+              <FormLabel>{{ $t("labels.fields.phone") }} <OptionalField /></FormLabel>
               <FormControl v-bind="componentField">
                 <Input
                   type="tel"
@@ -350,7 +351,7 @@ const handleSubmit = form.handleSubmit(async (values) => {
             name="website"
           >
             <FormItem class="sm:col-span-2">
-              <FormLabel>{{ $t("crm.clients.dialogs.fields.website") }} <span class="text-xs text-muted-foreground font-normal">{{ $t("labels.optional", 1) }}</span></FormLabel>
+              <FormLabel>{{ $t("crm.clients.dialogs.fields.website") }} <OptionalField /></FormLabel>
               <div class="relative w-full">
                 <FormControl v-bind="componentField">
                   <Input
@@ -372,7 +373,7 @@ const handleSubmit = form.handleSubmit(async (values) => {
           name="notes"
         >
           <FormItem>
-            <FormLabel>{{ $t("labels.fields.notes") }} <span class="text-xs text-muted-foreground font-normal">{{ $t("labels.optional", 1) }}</span></FormLabel>
+            <FormLabel>{{ $t("labels.fields.notes") }} <OptionalField /></FormLabel>
             <FormControl v-bind="componentField">
               <Textarea :placeholder="$t('labels.placeholders.write-notes')" />
             </FormControl>

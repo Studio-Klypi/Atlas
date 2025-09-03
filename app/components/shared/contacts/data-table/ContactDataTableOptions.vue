@@ -2,6 +2,7 @@
 import { Archive, ArchiveRestore, Check, Copy, Download, Edit, Eye, MoreHorizontal } from "lucide-vue-next";
 import { useClipboard } from "@vueuse/core";
 import ConfirmDialog from "~/components/shared/dialogs/ConfirmDialog.vue";
+import ContactDialog from "~/components/shared/contacts/dialogs/ContactDialog.vue";
 
 const props = defineProps<{
   contact: IContact;
@@ -77,10 +78,10 @@ const isArchived = computed(() => !!props.contact.deletedAt);
       </DropdownMenuContent>
     </DropdownMenu>
 
-    <!-- <ClientDialog
+    <ContactDialog
       v-model:open="editOpen"
-      :client="client"
-    /> -->
+      :contact="contact"
+    />
     <ConfirmDialog
       v-model:open="archiveConfirmOpen"
       caption-key="crm.contacts.dialogs.archive-confirm.caption"
