@@ -157,7 +157,6 @@ export async function findOne(contactId: string): Promise<IContact> {
   const contact = await orm.contact.findUnique({
     where: {
       id: contactId,
-      deletedAt: null,
     },
     include: {
       creator: true,

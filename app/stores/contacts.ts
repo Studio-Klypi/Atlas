@@ -114,6 +114,10 @@ export const useContactsStore = defineStore("contacts", {
         });
 
         this.contacts.list = this.contacts.list.map(c => c.id === contactId ? { ...contact } : c);
+        if (this.selectedContact?.id === contact.id)
+          this.selectedContact = {
+            ...contact,
+          };
       }
       catch (e) {
         console.error(e);
@@ -133,6 +137,11 @@ export const useContactsStore = defineStore("contacts", {
 
         this.contacts.list = this.contacts.list.filter(c => c.id !== contactId);
         this.contacts.total--;
+
+        if (this.selectedContact?.id === contact.id)
+          this.selectedContact = {
+            ...contact,
+          };
 
         if (this.archived.total === -1) return;
         this.archived.list = [
@@ -154,6 +163,11 @@ export const useContactsStore = defineStore("contacts", {
 
         this.archived.list = this.archived.list.filter(c => c.id !== contactId);
         this.archived.total--;
+
+        if (this.selectedContact?.id === contact.id)
+          this.selectedContact = {
+            ...contact,
+          };
 
         if (this.contacts.total === -1) return;
         this.contacts.list = [

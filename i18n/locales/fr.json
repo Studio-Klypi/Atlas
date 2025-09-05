@@ -14,11 +14,14 @@
     "save": "Enregistrer",
     "new": "Nouveau | Nouvelle",
     "archive": "Archiver",
+    "restore": "Restaurer",
     "copy-id": "Copier l'identifiant",
     "load-more": "Charger plus",
-    "create-entry": "Créer l'entrée"
+    "create-entry": "Créer l'entrée",
+    "edit-sheet": "Éditer la fiche"
   },
   "labels": {
+    "archived": "Archivé | Archivée",
     "optional": "(optionnel) | (optionnelle)",
     "no-results": "Aucun résultats...",
     "dates": {
@@ -65,7 +68,8 @@
     "table": {
       "headers": {
         "created-at": "Créé  le | Créée le",
-        "created-by": "Créé par | Créée par"
+        "created-by": "Créé par | Créée par",
+        "updated-at": "Dernière mise à jour"
       }
     }
   },
@@ -208,6 +212,9 @@
         "active": "Actifs",
         "archived": "Archivés"
       }
+    },
+    "contact-details": {
+      "title": "Détails"
     }
   }
 }
