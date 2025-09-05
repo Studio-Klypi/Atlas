@@ -1,0 +1,22 @@
+Enum TargetType {
+  user
+}
+Enum ActionStatus {
+  success
+  failure
+}
+Table AuditLog {
+  id uuid pk [default: `cuid()`]
+
+  actorId uuid [null, ref: > User.id]
+  targetId uuid [null]
+  targetType TargetType [null]
+
+  action ActionType
+  ip string [null]
+  agent string [null]
+  status ActionStatus
+  meta string [null]
+
+  createdAt datetime [default: `now()`]
+}

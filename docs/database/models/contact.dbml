@@ -1,0 +1,18 @@
+Table Contact {
+  id uuid pk [default: `cuid()`]
+
+  firstname string
+  lastname string
+  email string unique [null, note: "use citext"]
+  phone string [null]
+
+  notes string [null]
+
+  createdBy uuid [ref: > User.id]
+
+  createdAt datetime [default: `now()`]
+  updatedAt datetime [default: `now()`]
+  deletedAt datetime [null]
+
+  Note: "unique [email, deletedAt]"
+}
