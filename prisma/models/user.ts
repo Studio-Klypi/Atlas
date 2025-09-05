@@ -40,18 +40,6 @@ export async function create(payload: IUserCreate): Promise<IUser> {
           },
         },
       },
-      include: {
-        logsAsActor: {
-          include: {
-            target: true,
-          },
-        },
-        logsAsTarget: {
-          include: {
-            actor: true,
-          },
-        },
-      },
     });
 
     return purify(user as unknown as IRichUser);
@@ -79,16 +67,6 @@ export async function findOne(id: string): Promise<IUser> {
     },
     include: {
       authSessions: true,
-      logsAsActor: {
-        include: {
-          target: true,
-        },
-      },
-      logsAsTarget: {
-        include: {
-          actor: true,
-        },
-      },
     },
   });
   if (!user) throw new Error("User not found");
@@ -108,16 +86,6 @@ export async function findByEmail(email: string): Promise<IUser> {
     },
     include: {
       authSessions: true,
-      logsAsActor: {
-        include: {
-          target: true,
-        },
-      },
-      logsAsTarget: {
-        include: {
-          actor: true,
-        },
-      },
     },
   });
   if (!user) throw new Error("User not found");
@@ -138,16 +106,6 @@ export async function authenticate(email: string, password: string): Promise<IUs
     },
     include: {
       authSessions: true,
-      logsAsActor: {
-        include: {
-          target: true,
-        },
-      },
-      logsAsTarget: {
-        include: {
-          actor: true,
-        },
-      },
     },
   });
   if (!user) throw new Error("User not found");
@@ -173,16 +131,6 @@ export async function update(id: string, payload: IUserUpdate): Promise<IUser> {
     },
     include: {
       authSessions: true,
-      logsAsActor: {
-        include: {
-          target: true,
-        },
-      },
-      logsAsTarget: {
-        include: {
-          actor: true,
-        },
-      },
     },
   });
   return purify(user as unknown as IRichUser);
@@ -202,16 +150,6 @@ export async function deleteOne(id: string): Promise<IUser> {
     },
     include: {
       authSessions: true,
-      logsAsActor: {
-        include: {
-          target: true,
-        },
-      },
-      logsAsTarget: {
-        include: {
-          actor: true,
-        },
-      },
     },
   });
   return purify(user as unknown as IRichUser);

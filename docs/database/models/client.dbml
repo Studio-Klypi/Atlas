@@ -1,0 +1,49 @@
+Enum ClientType {
+  company
+  individual
+}
+Enum Currency {
+  eur
+  usd
+}
+Table Client {
+  id uuid pk [default: `cuid()`]
+
+  type ClientType
+  name string
+  legalForm string [null]
+  address string
+
+  registrationNumber string [null]
+  siren string [null]
+  siret string unique [null]
+  vatNumber string [null]
+  billingCurrency Currency [default: "eur"]
+
+
+  email string [null]
+  phone string [null]
+  website string [null]
+  notes string [null]
+
+  createdBy uuid [ref: > User.id]
+
+  createdAt datetime [default: `now()`]
+  updatedAt datetime [default: `now()`]
+  deletedAt datetime [null]
+
+  Note: "UNIQUE [siret, deletedAt]; UNIQUE [registrationNumber, deletedAt]; UNIQUE [vatNumber, deletedAt]"
+}
+
+Table ClientContact {
+  clientId uuid pk [ref: > Client.id]
+  contactId uuid pk [ref: > Contact.id]
+  role string
+  isBillingContact boolean [default: false]
+  emailOverride string [null]
+
+  createdBy uuid [ref: > User.id]
+
+  createdAt datetime [default: `now()`]
+  updatedAt datetime [default: `now()`]
+}

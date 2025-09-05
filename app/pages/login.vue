@@ -10,6 +10,9 @@ definePageMeta({
   layout: "empty-center",
   auth: false,
 });
+useHead({
+  title: t("brand.tab-templates.default", { page: t("login.title") }),
+});
 
 const userStore = useUserStore();
 

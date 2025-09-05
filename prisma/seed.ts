@@ -1,15 +1,26 @@
 import { PrismaClient } from "@prisma/client";
 import { seedUsers } from "./seeds/users";
+import { seedClients } from "./seeds/clients";
+import { seedContacts } from "./seeds/contacts";
 
 const client = new PrismaClient();
+
+const seeds = {
+  users: seedUsers,
+  clients: seedClients,
+  contacts: seedContacts,
+};
 
 async function seed() {
   console.log("[Atlas DB] Seeding...");
 
-  console.log("[Atlas DB] Seeding users (0/1)");
-  await seedUsers(client);
+  const keys = Object.keys(seeds);
+  for (let i = 0; i < Object.keys(seeds).length; ++i) {
+    console.log(`[Atlas DB] Seeding ${keys[0]} (${i}/${keys.length})`);
+    await seeds[keys[i]](client);
+  }
 
-  console.log("[Atlas DB] Database seeded! (1/1)");
+  console.log(`[Atlas DB] Database seeded! (${keys.length}/${keys.length})`);
 }
 
 seed()
