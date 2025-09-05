@@ -50,6 +50,41 @@ export async function recoverClients(event: HttpEvent) {
   }
 }
 
+export async function recoverSpecificClient(event: HttpEvent) {
+  const { user, agent } = event.context;
+  const clientId = getRouterParam(event, "clientId");
+  if (!user || !clientId) return;
+
+  try {
+    const client = await ClientModel.findOne(clientId);
+    await AuditLogModel.create({
+      actorId: user.id,
+      action: "client.recover-specific",
+      agent,
+      status: "success",
+      meta: {
+        clientId,
+      },
+    });
+
+    return client;
+  }
+  catch {
+    await AuditLogModel.create({
+      actorId: user.id,
+      action: "client.recover-specific",
+      agent,
+      status: "failure",
+      meta: {
+        clientId,
+      },
+    });
+    return {
+      error: "Failed to recover client",
+    };
+  }
+}
+
 export async function createClient(event: HttpEvent) {
   const user = event.context.user;
   const body = await readBody<IClientCreate>(event);

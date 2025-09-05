@@ -50,7 +50,8 @@
       "street": "Rue",
       "zip": "Code postal",
       "city": "Ville",
-      "country": "Pays"
+      "country": "Pays",
+      "address": "Adresse"
     },
     "themes": {
       "light": "Clair",

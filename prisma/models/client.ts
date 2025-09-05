@@ -156,7 +156,6 @@ export async function findOne(id: string): Promise<IClient> {
   const client = await orm.client.findUnique({
     where: {
       id,
-      deletedAt: null,
     },
     include: {
       creator: true,

@@ -34,7 +34,12 @@ export const columns = (): ColumnDef<IClient>[] => {
       header: () => h("div", t("crm.clients.table.headers.address")),
       cell: ({ row }) => {
         const { street, zip, city, country } = row.original;
-        return h("div", { class: "relative z-10" }, h(Button, { variant: "link", size: "sm", asChild: true, class: "px-0!" }, h(NuxtLink, { to: useMap().buildUrl(street, zip, city, country), target: "_blank" }, `${street}, ${zip} ${city} (${country})`)));
+        const { buildString, buildUrl } = useMap();
+
+        const to = buildUrl(street, zip, city, country);
+        const string = buildString(street, zip, city, country);
+
+        return h("div", { class: "relative z-10" }, h(Button, { variant: "link", size: "sm", asChild: true, class: "px-0!" }, h(NuxtLink, { to, target: "_blank" }, string)));
       },
     },
     {

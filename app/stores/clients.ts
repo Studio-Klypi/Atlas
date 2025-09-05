@@ -74,6 +74,20 @@ export const useClientsStore = defineStore("clients", {
         this.loading.fetchingArchives = false;
       }
     },
+    async loadSpecificClient(clientId: string) {
+      try {
+        const { data } = await useFetch<IClient>(`/api/clients/${clientId}`);
+        if (!data.value) return;
+
+        this.selectedClient = data.value;
+      }
+      catch (e) {
+        console.error(e);
+      }
+    },
+    unloadSpecificClient() {
+      this.selectedClient = null;
+    },
 
     async createClient(payload: IClientCreate): Promise<boolean> {
       this.loading.creatingClient = true;
@@ -111,6 +125,7 @@ export const useClientsStore = defineStore("clients", {
         });
 
         this.clients.list = this.clients.list.map(c => c.id === clientId ? { ...client } : c);
+        if (this.selectedClient?.id === client.id) this.selectedClient = { ...client };
       }
       catch (e) {
         state = false;
@@ -132,6 +147,8 @@ export const useClientsStore = defineStore("clients", {
         this.clients.list = this.clients.list.filter(c => c.id !== clientId);
         this.clients.total--;
 
+        if (this.selectedClient?.id === client.id) this.selectedClient = { ...client };
+
         if (this.archived.total === -1) return;
         this.archived.list = [
           client,
@@ -152,6 +169,8 @@ export const useClientsStore = defineStore("clients", {
 
         this.archived.list = this.archived.list.filter(c => c.id !== clientId);
         this.archived.total--;
+
+        if (this.selectedClient?.id === client.id) this.selectedClient = { ...client };
 
         if (this.clients.total === -1) return;
         this.clients.list = [
