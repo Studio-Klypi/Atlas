@@ -5,6 +5,16 @@
   "description": "Internal ERP for Studio Klypi",
   "type": "module",
   "private": true,
+  "engines": {
+    "node": ">=22"
+  },
+  "repository": {
+    "url": "https://github.com/studio-klypi/atlas.git"
+  },
+  "bugs": {
+    "url": "https://github.com/studio-klypi/atlas/issues",
+    "email": "contact@studio-klypi.com"
+  },
   "prisma": {
     "schema": "prisma/schema.prisma",
     "seed": "tsx ./prisma/seed.ts"
@@ -12,6 +22,7 @@
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev --host",
+    "start": "node .output/server/index.mjs",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
