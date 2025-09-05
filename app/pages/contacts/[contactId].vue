@@ -28,7 +28,7 @@ contactsStore.loadSpecificContact(contactId.value);
 <template>
   <Page
     v-if="contact"
-    name="crm.clients.specific"
+    name="crm.contacts.specific"
     class="mx-auto w-full max-w-6xl"
   >
     <main class="flex flex-col gap-12">
