@@ -11,7 +11,7 @@ definePageMeta({
 });
 
 const route = useRoute();
-const clientId = computed(() => route.params.clientId as string);
+const contactId = computed(() => route.params.contactId as string);
 
 const { user } = storeToRefs(useUserStore());
 const contactsStore = useContactsStore();
@@ -22,7 +22,7 @@ const selectedTab = ref("about");
 const editModalOpen = ref<boolean>(false);
 
 onBeforeUnmount(contactsStore.unloadSpecificContact);
-contactsStore.loadSpecificContact(clientId.value);
+contactsStore.loadSpecificContact(contactId.value);
 </script>
 
 <template>
