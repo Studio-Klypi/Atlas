@@ -13,7 +13,7 @@ const props = withDefaults(defineProps<{
 <template>
   <div
     :data-page="name"
-    :class="cn('flex flex-col gap-4', props.class)"
+    :class="cn('', props.class)"
   >
     <slot />
   </div>

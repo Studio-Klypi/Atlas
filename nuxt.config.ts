@@ -12,7 +12,6 @@ export default defineNuxtConfig({
     "@nuxtjs/google-fonts",
     "@nuxtjs/color-mode",
     "@pinia/nuxt",
-    "nuxt-cron",
   ],
   devtools: { enabled: true },
   css: ["./tailwind.css"],
@@ -49,7 +48,7 @@ export default defineNuxtConfig({
   },
   googleFonts: {
     families: {
-      Rubik: "300..900",
+      Manrope: "200..800",
     },
   },
   i18n: {
@@ -57,9 +56,9 @@ export default defineNuxtConfig({
     locales: [
       {
         code: "fr",
-        iso: "fr-FR",
+        iso: "fr_FR",
         name: "Français",
-        file: "fr.json",
+        file: "fr_FR.json",
       },
     ],
     strategy: "prefix_except_default",
