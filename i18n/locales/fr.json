@@ -122,6 +122,11 @@
     "title": "Tableau de bord"
   },
   "crm": {
+    "labels": {
+      "tabs": {
+        "about": "À propos"
+      }
+    },
     "clients": {
       "title": "Clients",
       "table": {
@@ -214,8 +219,11 @@
         "archived": "Archivés"
       }
     },
+    "client-details": {
+      "title": "Détails du client"
+    },
     "contact-details": {
-      "title": "Détails"
+      "title": "Détails du contact"
     }
   }
 }

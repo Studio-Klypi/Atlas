@@ -106,14 +106,8 @@ clientsStore.loadSpecificClient(clientId.value);
         <Tabs v-model="selectedTab">
           <TabsList>
             <TabsTrigger value="about">
-              À propos
+              {{ $t("crm.labels.tabs.about") }}
             </TabsTrigger>
-            <!-- <TabsTrigger value="quotes">
-              Devis
-            </TabsTrigger>
-            <TabsTrigger value="billings">
-              Factures
-            </TabsTrigger> -->
           </TabsList>
 
           <TabsContent value="about">
@@ -206,12 +200,6 @@ clientsStore.loadSpecificClient(clientId.value);
               </div>
             </section>
           </TabsContent>
-          <!-- <TabsContent value="quotes">
-            Quotes table
-          </TabsContent>
-          <TabsContent value="billings">
-            Billings table
-          </TabsContent> -->
         </Tabs>
       </section>
     </main>
